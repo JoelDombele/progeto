@@ -1,0 +1,100 @@
+.view{
+    font-family:Arial, Helvetica, sans-serif ;
+    background-image: url('../imagens/capa.jpg');
+    background-color: rgba(0, 128, 255, 0.884);
+    background-size: cover;
+   
+     }
+     .form{
+         background-color:rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 80px; 
+       border-radius: 15px;
+        color: white;
+       
+        
+     }
+     input[type="submit"],
+     input[type="text"],
+     input[type="email"],
+     input[type="password"],
+     textarea
+     {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      box-sizing: border-box; /* Esta linha é importante para o dimensionamento correto */
+       }     
+
+
+
+     input[type="text"]{
+     padding: 15px;
+     border: none;
+     display: unset;
+    
+     }
+     div a {
+        color: white;
+     }
+
+     div a :hover{
+        color:blue;
+     }
+     input[type="submit"] {
+      background-color: rgba(0, 128, 255, 0.884);
+      border: none;
+      padding: 15px;
+      width: 100%;
+      border-radius: 10px;
+      color: white;
+
+  }
+  table{
+   font-family: sans-serif;
+   font-weight: 100;
+   border-collapse: separate;
+   overflow: hidden;
+   box-shadow: 0 0 20px #0000001a;
+
+  }
+  th,td{
+   background-color:rgba(0, 0, 0, 0.8);
+   padding: 15px;
+   color: white;
+  }
+  thead th{
+   background-color: #55608f;
+  }
+  tbody tr:hover{
+   background-color: #ffffff4d;
+  }
+  tbody td{
+   position: relative;
+
+  }
+  tbody td :hover::before{
+   content: "";
+   position: absolute;
+   background-color: #ffffff33;
+   left: 0;
+   right: 0;
+   top: -9999px;
+   bottom: -9999px;
+   z-index: -1;
+  }
+  .listCourse{
+   background-image: url('../imagens/background.jpg');
+   color:white ;
+  }
+  main{
+   width: 400px;
+   margin: auto;
+   padding: 15px;justify-content: center;
+   align-items: center;
+   text-align: center;
+   color: white;
+  }

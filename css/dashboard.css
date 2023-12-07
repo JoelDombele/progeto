@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(248, 241, 241);
+}
+header{
+    background-image: linear-gradient(to left, rgb(33, 121, 155), blue);
+    padding: 20px 0;
+}
+/*main{
+
+}
+.icon{
+    width: 5%;
+    height: 100px;
+    display: inline;
+}
+.icon img{
+    width: 10%;
+}
+.icon h3{
+    display: inline;
+}*/
+
+main{
+    
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Centralizar os elementos horizontalmente */
+    align-items: center; /* Centralizar os elementos verticalmente */
+    height: 100vh; /* Tornar a altura do contêiner igual à altura da janela */
+    padding: 100px 0; /* Margem superior de 100px entre o cabeçalho e o .container */
+    width: 40%;
+    height: 400px;
+    margin: auto;
+}
+
+.icon {
+    text-align: center; /* Centralizar os elementos dentro de cada .icon */
+    margin: 20px; /* Espaçamento entre os ícones */
+    background-color: white;
+    
+}
+
+.icon img {
+    width: 80px; /* Largura do ícone */
+    height: 80px; /* Altura do ícone */
+    background-color: white;
+}
+
+.icon h3 {
+    margin-top: 10px; /* Espaçamento entre o ícone e o título */
+    background-color: white;
+}
+.container a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+
+
+
+

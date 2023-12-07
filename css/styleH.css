@@ -1,0 +1,175 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+.head{
+    padding: 7;
+    width: 100%;
+    height: 25px;
+    background-color: rgba(18, 18, 241, 0.966);
+    color: white;
+    text-align: center;
+    font-family: cursive;
+}
+.log{
+    display: inline;
+    margin-right: 70px;
+    margin-left: 300px;
+    font-family: cursive;
+}
+nav{
+    display: inline-block;
+    margin-right: 300px;
+    
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    margin-right: 40px;
+    font-weight: bold;
+
+}
+.background-container {
+    position: relative;
+    width: 100%;
+    background-image: url('../imagens/curso1.jpg'); 
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 25px; 
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.start{
+    background-color: rgba(250, 164, 6, 0.952);
+    text-decoration: none;
+    color: white;
+    padding: 1px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.start:hover{
+    color: black;
+}
+
+.texto{
+    text-align: center;
+}
+.cur01{
+    height: 300px;
+    width: 300px;
+    display: inline-block;
+    margin-top: 80px;
+    margin-right: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: lightgray;
+}
+img{
+    width: 300px;
+    height: 200px;
+}
+.center{
+    width: 650px;
+    margin: auto;
+}
+
+footer {
+    background-color: rgba(18, 18, 241, 0.966);
+    color: #fff;
+    padding: 20px;
+}
+.footer-block {
+    width: 33.33%; /* Divide o rodapé em 3 colunas iguais */
+    display: inline-block;
+    vertical-align: top;
+}
+.footer-text {
+    font-size: 18px;
+    line-height: 1.5;
+}
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(250, 164, 6, 0.952);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilos para um botão secundário (opcional) */
+button.secondary {
+    background-color: #e74c3c;
+}
+
+button.secondary:hover {
+    background-color: #c0392b;
+}
+nav a:hover{
+    background-color:rgba(250, 164, 6, 0.952); 
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+.container {
+    display: flex;
+    justify-content: center; /* Centralizar os elementos horizontalmente */
+    align-items: center; /* Centralizar os elementos verticalmente */
+    height: 100vh; /* Tornar a altura do contêiner igual à altura da janela */
+    padding: 100px 0; /* Margem superior de 100px entre o cabeçalho e o .container */
+    width: 40%;
+    height: 400px;
+    margin: auto;
+}
+
+.icon {
+    text-align: center; /* Centralizar os elementos dentro de cada .icon */
+    margin: 20px; /* Espaçamento entre os ícones */
+    background-color: white;
+    
+}
+
+.icon img {
+    width: 80px; /* Largura do ícone */
+    height: 80px; /* Altura do ícone */
+    background-color: white;
+}
+
+.icon h3 {
+    margin-top: 10px; /* Espaçamento entre o ícone e o título */
+    background-color: white;
+}
+.container a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+
+
+
+
+
