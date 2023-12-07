@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/homepage.css">
+    
 </head>
 <body>
     <nav class="navBar">
@@ -65,6 +66,10 @@
 
     </nav>
     <header>
+    <div class="search-box">
+            <input type="text" class="search-text" placeholder="Pesquisar...">
+            <button class="search-btn">Buscar</button>
+        </div>
         <div class="overlay">
             <div class="header-content">
                 <h2>Faça os melhores Cursos Aqui</h2>

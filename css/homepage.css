@@ -97,6 +97,52 @@ textarea
     color: white;
 
 }
+.search-box {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    position: absolute;
+    top: 200px; /* Posição um pouco mais para baixo */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.search-text {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    width: 0;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-text:focus {
+    width: 200px;
+    margin-right: 10px;
+}
+
+.search-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 8px 12px;
+    cursor: pointer;
+}
 
 nav h1{
     color: whitesmoke;

@@ -71,14 +71,17 @@ try {
     echo '<div class="courses-list">';
     
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo '<div class="course">';
-        echo '<img src="../images/' . $row['imagem'] . '" alt="Imagem do Curso">';
-        echo '<h2>' . $row['nome'] . '</h2>';
-        echo '<p>' . $row['descricao'] . '</p>';
-        echo '<a href="course.php?id=' . $row['id'] . '">Saiba mais</a>';
-        echo '</div>';
-    }
-    
+      $foto = $row['imagem'];
+      $nome = $row['nome'];
+      
+      echo '<div class="course">';
+      echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
+      echo '<h2>' . $nome . '</h2>';
+      echo '<p>' . $row['descricao'] . '</p>';
+      echo '<a href="course.php?id=' . $row['id'] . '">Saiba mais</a>';
+      echo '</div>';
+  }
+  
     echo '</div>';
     echo '</body>';
     echo '</html>';

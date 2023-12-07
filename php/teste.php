@@ -2,30 +2,29 @@
 <?php
 require_once 'connection.php';
 
-function uploadImagem($vetor) {
-    $vtipo = explode('/', $vetor['type']);
-    $tipo = isset($vtipo[0]) ? $vtipo[0] : '';
-    $extensao = isset($vtipo[1]) ? $vtipo[1] : '';
+function uploadImagem($arquivo, $diretorioDestino) {
+    if (isset($arquivo['name']) && isset($arquivo['tmp_name'])) {
+        $nomeArquivo = $arquivo['name'];
+        $caminhoTemporario = $arquivo['tmp_name'];
+        $caminhoDestino = $diretorioDestino . '/' . $nomeArquivo;
 
-    if ((!$vetor['error']) and (!$vetor['size'] <= 500000) and ($tipo == "image")) {
-        $nome = date('Ymd') . "emerson_coder" . $extensao;
-
-        $diretorio = '/opt/lampp/htdocs/images'; // Caminho do diretório onde deseja armazenar as imagens
-
-        if (!is_dir($diretorio)) {
-            // Se o diretório não existir, crie um novo
-            mkdir($diretorio, 0777, true); // Permissões 0777 dão acesso total
+        // Verifica se o arquivo é uma imagem válida
+        $extensoesPermitidas = array('jpg', 'jpeg', 'png');
+        $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+        if (!in_array($extensao, $extensoesPermitidas)) {
+            return "Erro: O arquivo enviado não é uma imagem válida.";
         }
 
-        $caminhoCompleto = $diretorio . "/" . $nome;
-        move_uploaded_file($vetor['tmp_name'], $caminhoCompleto);
-        return $caminhoCompleto;
+        // Move o arquivo para o diretório de destino
+        if (move_uploaded_file($caminhoTemporario, $caminhoDestino)) {
+            return $nomeArquivo;
+        } else {
+            return "Erro ao fazer upload de imagem.";
+        }
     } else {
-        return 0;
+        return "Erro: Dados do arquivo não estão presentes.";
     }
 }
-   
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $database = new DB();
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // Executa a função de upload da imagem
     $arquivo = $_FILES['imagem'];
-    $diretorioDestino = 'uploads/imagens/cursos'; // Substitua pelo seu diretório real
+    $diretorioDestino = 'C:\xampp\htdocs\joel\progeto\progeto\imagens'; // Substitua pelo seu diretório real
 
     $resultadoUpload = uploadImagem($arquivo, $diretorioDestino);
 
