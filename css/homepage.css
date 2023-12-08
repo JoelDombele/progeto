@@ -99,19 +99,7 @@ textarea
 }
 .search-box {
     position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    padding: 10px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-}
-
-.search-box {
-    position: absolute;
-    top: 200px; /* Posição um pouco mais para baixo */
+    top: 80px; /* Ajuste para uma posição mais baixa */
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
@@ -124,19 +112,18 @@ textarea
 .search-text {
     border: none;
     outline: none;
-    padding: 5px;
+    padding: 5px; /* Ajuste do espaçamento interno */
     font-size: 16px;
     width: 0;
     transition: width 0.4s ease-in-out;
 }
 
 .search-text:focus {
-    width: 200px;
+    width: calc(100% - 100px); /* Utilização do espaço disponível */
     margin-right: 10px;
 }
 
 .search-btn {
-    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 50%;
