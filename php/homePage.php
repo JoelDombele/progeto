@@ -67,11 +67,12 @@
     </nav>
     <header>
     <div class="search-box">
-   
+      <form action="pesquisa" method="get">
             <input type="text" class="search-text" placeholder="Pesquisar...">
-            <button class="search-btn">
+            <button class="search-btn" type="submit">
             <img src="../imagens/big-search-len.png" alt="Ícone de Pesquisa" width="20">
             </button>
+    </form>     
         </div>
         <div class="overlay">
             <div class="header-content">

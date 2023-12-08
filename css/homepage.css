@@ -99,7 +99,7 @@ textarea
 }
 .search-box {
     position: absolute;
-    top: 80px; /* Ajuste para uma posição mais baixa */
+    top: 200px; /* Ajuste para uma posição mais baixa */
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
@@ -406,5 +406,16 @@ body, html{
     }
     .nav-links li{
         margin: 30px auto;
+    }
+    .search-box {
+        position: absolute;
+        top: 80px; /* Ajuste para uma posição mais baixa */
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        padding: 10px;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
     }
 }
