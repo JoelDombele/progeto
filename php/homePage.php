@@ -67,9 +67,9 @@
     </nav>
     <header>
     <div class="search-box">
-      <form action="pesquisa" method="get">
-            <input type="text" class="search-text" placeholder="Pesquisar...">
-            <button class="search-btn" type="submit">
+      <form action="pesquisa.php" method="get">
+            <input type="text" class="search-text" placeholder="Pesquisar..." name="search">
+            <button class="search-btn"  type="submit">
             <img src="../imagens/big-search-len.png" alt="Ícone de Pesquisa" width="20">
             </button>
     </form>     

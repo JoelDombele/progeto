@@ -20,7 +20,7 @@
 
 .course img {
   width: 100%;
-  height: auto;
+  height: 250px;
   border-radius: 5px;
 }
 
@@ -66,6 +66,10 @@ try {
         $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE nome LIKE :search");
         $stmt->bindValue(':search', "%$search%");
         $stmt->execute();
+    }else {
+        // Redireciona de volta para a página inicial se não houver termo de pesquisa
+        header("Location: homePage.php");
+        exit();
     }
 
 
