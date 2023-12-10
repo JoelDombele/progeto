@@ -56,6 +56,12 @@
             <!-- Adicione os instrutores dinamicamente aqui -->
         </select><br><br>
 
+        <label for="tipo_curso">Tipo de Curso:</label><br>
+        <input type="checkbox" id="cursosPagos" name="tipo_curso[]" value="Cursos Pagos">
+        <label for="cursosPagos">Cursos Pagos</label><br>
+        <input type="checkbox" id="cursosGratuitos" name="tipo_curso[]" value="Cursos Gratuitos">
+        <label for="cursosGratuitos">Cursos Gratuitos</label><br><br>
+
         <label for="imagem">Imagem de capa</label><br><br>
         <input type="file" name="imagem" id="imagem" required><br><br>
 

@@ -72,7 +72,22 @@
             <button class="search-btn"  type="submit">
             <img src="../imagens/big-search-len.png" alt="Ícone de Pesquisa" width="20">
             </button>
-    </form>     
+    </form> 
+    <script>
+        // Seleciona os elementos da barra de pesquisa
+        const searchInput = document.querySelector('.search-text');
+        const searchButton = document.querySelector('.search-btn');
+
+        // Adiciona um ouvinte de evento para quando o foco é perdido na barra de pesquisa
+        searchInput.addEventListener('blur', () => {
+            // Verifica se o campo de pesquisa está vazio
+            if (searchInput.value === '') {
+                // Move o ícone para a posição original
+                searchButton.style.top = '50%';
+                searchButton.style.transform = 'translateY(-50%)';
+            }
+        });
+    </script>    
         </div>
         <div class="overlay">
             <div class="header-content">
