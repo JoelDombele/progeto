@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoria_id = $_POST["categoria"];
     $instrutor_id = $_POST["instrutor"];
     $descricao = trim($_POST["descricao"]);
+    $tiposSelecionados = $_POST['tipo_curso'];
     $imagem = $_FILES["imagem"];
 
     // ... (código de validação dos campos do formulário) ...
@@ -59,12 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insere o caminho do arquivo de imagem no banco de dados
     $caminho_completo = $resultadoUpload; // Defina o caminho completo da imagem após o upload
 
-    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :imagem)");
+    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao,tipo_curso, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :imagem)");
 
     $stmt->bindParam(':nome', $nome_curso);
     $stmt->bindParam(':categoria_id', $categoria_id);
     $stmt->bindParam(':instrutor_id', $instrutor_id);
     $stmt->bindParam(':descricao', $descricao);
+    $stmt->bindParam(':tipo_curso', $tiposSelecionados);
     $stmt->bindParam(':imagem', $caminho_completo);
 
     if ($stmt->execute()) {
