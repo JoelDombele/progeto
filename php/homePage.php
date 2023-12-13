@@ -39,7 +39,7 @@
     <details>
       <summary>Cursos</summary>
       <div class="cursos-links">
-        <a href="cursosPagos.php" class="curso-link">Cursos Gratuitos</a>
+        <a href="cursosPagos.php?value='Cursos Gratuitos'" class="curso-link">Cursos Gratuitos</a>
         <a href="#" class="curso-link">Cursos Pagos</a>
       </div>
     </details>

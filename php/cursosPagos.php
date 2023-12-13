@@ -57,7 +57,17 @@ $database = new DB();
 $conn = $database->connect();
 
 try {
+
+  if (isset($_GET['value'])) {
+    $tipo_curso = isset($_GET['value']);
+    $tipo_cursoSelecionado = $tipo_curso;
+    $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE tipo_curso = :tipo_curso");
+    $stmt->bindParam('tipo_curso', $tipo_cursoSelecionado);
+} else {
     $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos");
+}
+
+    //$stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos");
     $stmt->execute();
 
     echo '<!DOCTYPE html>';
