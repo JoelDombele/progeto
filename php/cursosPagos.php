@@ -53,23 +53,22 @@
 <?php
 require_once 'connection.php';
 
-// Conectar ao banco de dados
 $database = new DB();
 $conn = $database->connect();
 
 try {
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['tipo_curso'])) {
-        // Verificar se o checkbox de "Cursos Gratuitos" está marcado
-        if (in_array('Cursos Gratuitos', $_GET['tipo_curso'])) {
-            // Se estiver marcado, listar apenas os cursos gratuitos
-            $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE tipo_curso = 'Cursos Gratuitos'");
-        } else {
-            // Caso contrário, listar todos os cursos
-            $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos");
-        }
+        $tipos = $_GET['tipo_curso'];
 
-        // Executar a consulta SQL
-        $stmt->execute();
+        // Prepara uma string com placeholders para os valores
+        $placeholders = implode(',', array_fill(0, count($tipos), '?'));
+
+        // Cria a consulta SQL usando IN com os placeholders
+        $sql = "SELECT id, nome, descricao, imagem FROM cursos WHERE tipo_curso IN ($placeholders)";
+        $stmt = $conn->prepare($sql);
+
+        // Executa a consulta usando os valores selecionados
+        $stmt->execute($tipos);
 
         echo '<!DOCTYPE html>';
         echo '<html lang="en">';

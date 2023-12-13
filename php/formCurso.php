@@ -57,9 +57,9 @@
         </select><br><br>
 
         <label for="tipo_curso">Tipo de Curso:</label><br>
-        <input type="checkbox" id="cursosPagos" name="tipo_curso[]" value="Cursos Pagos">
+        <input type="checkbox" id="cursosPagos" name="tipo_curso[]" value="1">
         <label for="cursosPagos">Curso Pago</label><br>
-        <input type="checkbox" id="cursosGratuitos" name="tipo_curso[]" value="Cursos Gratuitos">
+        <input type="checkbox" id="cursosGratuitos" name="tipo_curso[]" value="2">
         <label for="cursosGratuitos">Curso Gratuito</label><br><br>
 
         <label for="imagem">Imagem de capa</label><br><br>

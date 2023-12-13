@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoria_id = $_POST["categoria"];
     $instrutor_id = $_POST["instrutor"];
     $descricao = trim($_POST["descricao"]);
-    $tiposSelecionados = $_POST['tipo_curso'];
+    $tiposSelecionados = implode(",", $_POST['tipo_curso']);
     $imagem = $_FILES["imagem"];
 
     // ... (código de validação dos campos do formulário) ...
