@@ -64,6 +64,7 @@ try {
     $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE tipo_curso = :tipo_curso");
     $stmt->bindParam('tipo_curso', $tipo_cursoSelecionado);
 } else {
+    // Se nenhum parâmetro de categoria for especificado, listar todos os cursos
     $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos");
 }
 
