@@ -31,7 +31,7 @@
 <body class="view">
     <div class="form">
     <h1>Cadastrar Cursos</h1>
-    <form action="teste.php" method="post" enctype="multipart/form-data">
+    <form action="teste.php" id="cursoForm" method="post" enctype="multipart/form-data">
         <label for="nome_curso">Nome do curso</label><br>
         <input type="text" required name="nome_curso"><br><br>
 
@@ -67,6 +67,18 @@
 
         <input type="submit" value="Enviar" name="confirmar">
     </form>
+    <script>
+document.getElementById('cursoForm').addEventListener('submit', function(event) {
+  var cursosPagos = document.getElementById('cursosPagos');
+  var cursosGratuitos = document.getElementById('cursosGratuitos');
+
+  if (cursosPagos.checked) {
+    event.preventDefault(); // Previne o envio do formulário
+    window.location.href = 'curso_pago.php'; // Redireciona para o formulário de curso pago
+  }
+});
+</script>
+
     </div>  
 </body>
 </html>
