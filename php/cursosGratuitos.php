@@ -1,5 +1,12 @@
-<style>
-    /* Estilos básicos para a lista de cursos */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/homepage.css">
+  <style>
+/* Estilos básicos para a lista de cursos */
 .courses-list {
   display: flex;
   justify-content: space-around;
@@ -48,8 +55,53 @@
 .course a:hover {
   background-color: #0056b3;
 }
+.footer{
+    width: 100%;
+    min-height: 100px;
+    padding: 20px 80px;
+    margin: 0;
+    background-color: #484872;
+    text-align: center;
+
+}
+.footer p{
+    color: whitesmoke;
+    margin: 20px auto;
+    padding: 20px auto ;
+}
+
 
 </style>
+
+</head>
+<body>
+<nav class="navBar">
+            <h1 class="logo">EAD</h1>
+            <ul class="nav-links">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Categorias</a></li>
+                <li><a href="login.php" class="ctn">Login</a></li>
+                <li><a href="cadastrar.php" class="ctn">sign in</a></li>
+            </ul>
+            <img src="../imagens/menu-aberto.png" alt="" class="menu-bnt">
+
+    </nav>
+<header class="instrutor">
+        <div class="overlay">
+            <div class="header-content">
+                <h2>Crie Conteudos e Ajude muitas mentes Evoluirem</h2>
+                <div class="line"></div>
+                <h1>Encontre a tua inspiração</h1>
+                <a href="#" class="ctn">Aprenda mais</a>
+            </div>
+        </div>
+</header>
+<div class="title">
+            <h1>Cursos Gratuitos</h1>
+            <div class="line"></div>
+        </div>
+
 <?php
 require_once 'connection.php';
 
@@ -102,3 +154,19 @@ try {
     echo "Erro: " . $e->getMessage();
 }
 ?>
+<section class="footer">
+        <p>Explore as capacidades do seu cerebro. Projeto desenvolvido pelo grupo nº 2</p>
+        <p>Copyright @ 2023 EAD</p>
+    </section>
+
+    <script>
+        const menuBnt = document.querySelector('.menu-bnt')
+        const navlinks = document.querySelector('.nav-links')
+
+        menuBnt.addEventListener('click',()=>{
+            navlinks.classList.toggle('mobile-menu')
+        })
+    </script>
+
+</body>
+</html>
