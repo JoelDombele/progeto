@@ -67,17 +67,7 @@
 
         <input type="submit" value="Enviar" name="confirmar">
     </form>
-    <script>
-document.getElementById('cursoForm').addEventListener('submit', function(event) {
-  var cursosPagos = document.getElementById('cursosPagos');
-  var cursosGratuitos = document.getElementById('cursosGratuitos');
-
-  if (cursosPagos.checked) {
-    event.preventDefault(); // Previne o envio do formulário
-    window.location.href = 'curso_pago.php'; // Redireciona para o formulário de curso pago
-  }
-});
-</script>
+    
 
     </div>  
 </body>
