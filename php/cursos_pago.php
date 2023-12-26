@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="form">
     <h2>Detalhes do Curso</h2>
-    <form action="/processar_dados_do_formulario" method="post">
+    <form  method="post">
     <label for="preco">Preço:</label>
     <input type="number" id="preco" name="preco" required><br><br>
 

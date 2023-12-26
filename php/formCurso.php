@@ -40,7 +40,7 @@
          <?php 
          // Cria as opções do select
          foreach ($categorias as $categoria) {
-                echo "<option value=\"{$categoria['id']}\">{$categoria['nome']}</option>";
+                echo "<option value=\"{$categoria['id']}\" data-id=\"{$curso['id']}\">{$categoria['nome']}</option>";
             } ?>
         </select><br><br>
 
@@ -64,6 +64,24 @@
 
         <label for="imagem">Imagem de capa</label><br><br>
         <input type="file" name="imagem" id="imagem" required><br><br>
+
+        <script>
+document.getElementById('cursoForm').addEventListener('submit', function(event) {
+    var checkboxCursosPagos = document.getElementById('cursosPagos');
+    
+    if (checkboxCursosPagos.checked) {
+        event.preventDefault(); // Previne o envio padrão do formulário
+        
+        // Obtém o ID do curso selecionado do campo select 'categoria'
+        var categoriaSelect = document.getElementById('categoria');
+        var idCursoSelecionado = categoriaSelect.options[categoriaSelect.selectedIndex].getAttribute('data-id');
+        
+        // Redireciona para cursos_pago.php com o ID do curso na URL
+        window.location.href = 'cursos_pago.php?id=' + idCursoSelecionado;
+    }
+});
+</script>
+
 
         <input type="submit" value="Enviar" name="confirmar">
     </form>

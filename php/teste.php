@@ -154,7 +154,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Exibir a lista de cursos em forma de tabela
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $nome_curso = $row['nome'];
+                $id_curso = $row['id'];
+                $nome_curso = $row['nome'];
                 $categoria_id = $row['categoria_id'];
 
                 // Consulta para obter o nome da categoria
@@ -172,12 +173,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<td>$nome_categoria</td>";
                 echo "<td>
                         <a href='editarCurso.php?id_curso=$id_curso' class='btn-editar'>Editar</a>
-                        <a href='eliminarCurso.php?id_curso=$id_curso' class='btn-eliminar'>Eliminar</a>
+                        <a href='teste.php?id_curso=$id_curso' class='btn-eliminar'>Eliminar</a>
                       </td>";
                 echo "</tr>";
             }
             ?>
         </tbody>
     </table>
+
+    <?php
+require_once 'connection.php';
+
+$mensagem = ""; // Inicializa a variável de mensagem
+
+// Criar um objeto de conexão
+$database = new DB();
+$conn = $database->connect();
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Verifica se foi passado um ID na URL para exclusão
+    if(isset($_GET['id_curso']) && !empty($_GET['id_curso'])) {
+        $id_curso = $_GET['id_curso'];
+
+        // Prepara a declaração SQL para excluir o curso
+        $query = "DELETE FROM cursos WHERE id = :id_curso";
+        $stmt = $conn->prepare($query);
+
+        // Vincula o parâmetro ID à declaração
+        $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $mensagem = "Curso excluído com sucesso.";
+        } else {
+            $mensagem = "Erro ao excluir o curso.";
+        }
+    } else {
+        $mensagem = "ID do curso não fornecido para exclusão.";
+    }
+}
+?>
+
 </body>
 </html>
