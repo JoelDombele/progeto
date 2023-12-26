@@ -135,12 +135,13 @@ try {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $foto = $row['imagem'];
             $nome = $row['nome'];
+            $id_curso = $row['id'];
 
             echo '<div class="course">';
             echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
             echo '<h2>' . $nome . '</h2>';
             echo '<p>' . $row['descricao'] . '</p>';
-            echo '<a href="aulasUser.php?id_curso=$id_curso"> Começar </a>';
+            echo '<a href="listarAula.php?id_curso=m$id_curso"> Começar </a>';
             echo '</div>';
         }
 

@@ -154,8 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Exibir a lista de cursos em forma de tabela
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $id_curso = $row['id'];
-                $nome_curso = $row['nome'];
+                                $nome_curso = $row['nome'];
                 $categoria_id = $row['categoria_id'];
 
                 // Consulta para obter o nome da categoria
