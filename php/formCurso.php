@@ -31,8 +31,10 @@
 <body class="view">
     <div class="form">
     <h1>Cadastrar Cursos</h1>
-    <form action="teste.php" id="cursoForm" method="post" enctype="multipart/form-data">
+    <form action="teste.php" id="cursoForm" method="get" enctype="multipart/form-data">
+        
         <label for="nome_curso">Nome do curso</label><br>
+        <input type="hidden" id="cursoId" name="curso_id" value="<?php echo $id_curso_selecionado; ?>">
         <input type="text" required name="nome_curso"><br><br>
 
         <label for="categoria">Categoria</label>
@@ -70,14 +72,12 @@ document.getElementById('cursoForm').addEventListener('submit', function(event) 
     var checkboxCursosPagos = document.getElementById('cursosPagos');
     
     if (checkboxCursosPagos.checked) {
-        event.preventDefault(); // Previne o envio padrão do formulário
-        
         // Obtém o ID do curso selecionado do campo select 'categoria'
         var categoriaSelect = document.getElementById('categoria');
-        var idCursoSelecionado = categoriaSelect.options[categoriaSelect.selectedIndex].getAttribute('data-id');
+        var idCursoSelecionado = categoriaSelect.value;
         
-        // Redireciona para cursos_pago.php com o ID do curso na URL
-        window.location.href = 'cursos_pago.php?id=' + idCursoSelecionado;
+        // Modifica a URL do formulário para incluir o ID do curso como um parâmetro GET
+        this.action = 'teste.php?id_curso=' + idCursoSelecionado;
     }
 });
 </script>

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = $database->connect();
 
     // Valida os dados do formulário
-
+    
     $nome_curso = trim($_POST["nome_curso"]);
     $categoria_id = $_POST["categoria"];
     $instrutor_id = $_POST["instrutor"];
