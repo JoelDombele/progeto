@@ -98,6 +98,7 @@ textarea
 
 }
 .search-box {
+    width: 500px;
     position: absolute;
     top: 200px; /* Ajuste para uma posição mais baixa */
     left: 50%;
@@ -110,6 +111,7 @@ textarea
 }
 
 .search-text {
+    width: 500px;
     border: none;
     outline: none;
     padding: 5px; /* Ajuste do espaçamento interno */
@@ -119,7 +121,7 @@ textarea
 }
 
 .search-text:focus {
-    width: calc(100% - 100px); /* Utilização do espaço disponível */
+    width: 480px; /* Utilização do espaço disponível */
     margin-right: 10px;
 }
 

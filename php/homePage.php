@@ -28,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="../css/homepage.css">
-    
+    <link rel="stylesheet" href="../css/listagemCursos.css">
 </head>
 <body>
     <nav class="navBar">
@@ -68,10 +68,8 @@
     <header>
     <div class="search-box">
       <form action="pesquisa.php" method="get">
-            <input type="text" class="search-text" placeholder="Pesquisar..." name="search">
-            <button class="search-btn"  type="submit">
-            <img src="../imagens/big-search-len.png" alt="Ícone de Pesquisa" width="20">
-            </button>
+            <input type="text" class="search-text" placeholder="Pesquise por Qualquer curso..." name="search">
+            
     </form> 
     <script>
         // Seleciona os elementos da barra de pesquisa
@@ -104,31 +102,45 @@
             <h1>Cursos com Qualidade</h1>
             <div class="line"></div>
         </div>
-        <div class="row">
-            <div class="col">
-                <img src="../imagens/rv.jpg" alt="">
-                <h4>Realidade Virtual</h4>
-                <p>Um curso que vai te ajudar a se tornar num mestre do mundo virtual e muito mais.</p>
-                <a href="#" class="ctn">Inscreva-se </a>
-            </div>
-
-            <div class="col">
-                <img src="../imagens/marketing.jpg" alt="">
-                <h4>Marketing Digital</h4>
-                <p>Um curso que vai te ajudar a se tornar num mestre do mundo virtual e muito mais.</p>
-                <a href="#" class="ctn">Inscreva-se </a>
-            </div>
-            <div class="col">
-                <img src="../imagens/yoga.jpg" alt="">
-                <h4>O codigo da Hipertrofia</h4>
-                <p>Um curso que vai te ajudar a se tornar num mestre do mundo virtual e muito mais.</p>
-                <a href="#" class="ctn">Inscreva-se </a>
-            </div>
-            
-
-
-        </div>
+        
     </section>
+    <?php
+
+        $database = new DB();
+        $conn = $database->connect();
+
+          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE visualizacoes > 1");
+          $stmt->execute();
+          
+          echo '<!DOCTYPE html>';
+        echo '<html lang="en">';
+        echo '<head>';
+        echo '<meta charset="UTF-8">';
+        echo '<title>Lista de Cursos</title>';
+        echo '<link rel="stylesheet" href="styles.css">';
+        echo '</head>';
+        echo '<body>';
+        echo '<div class="courses-list">';
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $foto = $row['imagem'];
+            $nome = $row['nome'];
+            $id_curso = $row['id'];
+
+            echo '<div class="course">';
+            echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
+            echo '<h2>' . $nome . '</h2>';
+            echo '<p>' . $row['descricao'] . '</p>';
+            echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
+
+            echo '</div>';
+        }
+
+        echo '</div>';
+        echo '</body>';
+        echo '</html>';
+        
+        ?>
 
     <section class="explore">
         <div class="overlay-explore">
