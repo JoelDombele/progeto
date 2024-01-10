@@ -70,6 +70,7 @@
       <form action="pesquisa.php" method="get">
             <input type="text" class="search-text" placeholder="Pesquise por Qualquer curso..." name="search">
             
+            
     </form> 
     <script>
         // Seleciona os elementos da barra de pesquisa
