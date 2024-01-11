@@ -25,7 +25,6 @@ function uploadImagem($arquivo, $diretorioDestino) {
         return "Erro: Dados do arquivo não estão presentes.";
     }
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $database = new DB();
     $conn = $database->connect();

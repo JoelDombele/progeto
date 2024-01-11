@@ -31,10 +31,9 @@
 <body class="view">
     <div class="form">
     <h1>Cadastrar Cursos</h1>
-    <form action="teste.php" id="cursoForm" method="get" enctype="multipart/form-data">
+    <form action="teste.php" id="cursoForm" method="post" enctype="multipart/form-data">
         
         <label for="nome_curso">Nome do curso</label><br>
-        <input type="hidden" id="cursoId" name="curso_id" value="<?php echo $id_curso_selecionado; ?>">
         <input type="text" required name="nome_curso"><br><br>
 
         <label for="categoria">Categoria</label>
