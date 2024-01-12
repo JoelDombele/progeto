@@ -1,7 +1,7 @@
 <?php
 class DB {
     private $host = 'localhost';
-    private $db_name = 'curso';
+    private $db_name = 'ead';
     private $username = 'root';
     private $password = '';
     private $conn;

@@ -118,7 +118,7 @@ try {
         $stmt->bindParam(':categoria_id', $categoriaSelecionada);
     } else {
         // Se nenhum parâmetro de categoria for especificado, listar todos os cursos
-        $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos");
+        $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM curso");
     }
 
     $stmt->execute();
