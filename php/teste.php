@@ -25,6 +25,7 @@ function uploadImagem($arquivo, $diretorioDestino) {
         return "Erro: Dados do arquivo não estão presentes.";
     }
 }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $database = new DB();
     $conn = $database->connect();
@@ -36,6 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $instrutor_id = $_POST["instrutor"];
     $descricao = trim($_POST["descricao"]);
     $tiposSelecionados = implode(",", $_POST['tipo_curso']);
+
+    // Definindo valores padrão para cursos gratuitos
+    $preco_curso = (in_array('2', $_POST['tipo_curso'])) ? 0 : $_POST["preco_curso"];
+    $metodo_pagamento = (in_array('2', $_POST['tipo_curso'])) ? '' : $_POST["metodo_pagamento"];
+
     $imagem = $_FILES["imagem"];
 
     // ... (código de validação dos campos do formulário) ...
@@ -51,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultadoUpload = uploadImagem($arquivo, $diretorioDestino);
 
     // Verifica o resultado do upload da imagem
-    if (strpos('$resultadoUpload', 'Erro') !== false) {
+    if (strpos($resultadoUpload, 'Erro') !== false) {
         echo $resultadoUpload;
         exit;
     }
@@ -59,13 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insere o caminho do arquivo de imagem no banco de dados
     $caminho_completo = $resultadoUpload; // Defina o caminho completo da imagem após o upload
 
-    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao,tipo_curso, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :imagem)");
+    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, PrecoCurso, MetodoPagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
 
     $stmt->bindParam(':nome', $nome_curso);
     $stmt->bindParam(':categoria_id', $categoria_id);
     $stmt->bindParam(':instrutor_id', $instrutor_id);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':tipo_curso', $tiposSelecionados);
+    $stmt->bindParam(':preco_curso', $preco_curso);
+    $stmt->bindParam(':metodo_pagamento', $metodo_pagamento);
     $stmt->bindParam(':imagem', $caminho_completo);
 
     if ($stmt->execute()) {
@@ -76,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 
 

@@ -46,7 +46,7 @@
         </select><br><br>
 
         <label for="descricao">Descrição </label><br>
-        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea><br><br>
+        <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea><br><br>
 
         <label for="instrutor">Instrutor</label>
         <select name="instrutor" id="instrutor">
@@ -63,23 +63,16 @@
         <input type="checkbox" id="cursosGratuitos" name="tipo_curso[]" value="2" checked>
         <label for="cursosGratuitos">Curso Gratuito</label><br><br>
 
+        <label for="preco_curso">Preço do Curso</label><br>
+            <input type="number" name="preco_curso"><br><br>
+
+            <label for="metodo_pagamento">Método de Pagamento</label><br>
+            <input type="text" name="metodo_pagamento"><br><br>
+
+
         <label for="imagem">Imagem de capa</label><br><br>
         <input type="file" name="imagem" id="imagem" required><br><br>
 
-        <script>
-document.getElementById('cursoForm').addEventListener('submit', function(event) {
-    var checkboxCursosPagos = document.getElementById('cursosPagos');
-    
-    if (checkboxCursosPagos.checked) {
-        // Obtém o ID do curso selecionado do campo select 'categoria'
-        var categoriaSelect = document.getElementById('categoria');
-        var idCursoSelecionado = categoriaSelect.value;
-        
-        // Modifica a URL do formulário para incluir o ID do curso como um parâmetro GET
-        this.action = 'teste.php?id_curso=' + idCursoSelecionado;
-    }
-});
-</script>
 
 
         <input type="submit" value="Enviar" name="confirmar">
