@@ -71,7 +71,7 @@
             
         }
 
-        .buy-button a {
+        .buy-button button {
             padding: 10px 20px;
             background-color: #e44d26;
             color: #fff;
@@ -81,56 +81,59 @@
             cursor: pointer;
             text-decoration: none;
         }
-        .buy-button a:hover {
+        .buy-button button:hover {
             background-color: #333;
         }
 
     </style>
 </head>
 <body>
-    <?php
-        require_once 'connection.php';
+<?php
+require_once 'connection.php';
 
-        // Verificar se o ID do curso está presente na URL
-        if (isset($_GET['id_curso'])) {
-            $id_curso = $_GET['id_curso'];
+if (isset($_GET['id_curso'])) {
+    $id_curso = $_GET['id_curso'];
 
-            // Criar um objeto de conexão
-            $database = new DB();
-            $conn = $database->connect();
+    $database = new DB();
+    $conn = $database->connect();
 
-            // Consulta ao banco de dados para obter as informações do curso específico
-            $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, instrutor_id, visualizacoes, PrecoCurso FROM cursos WHERE id = :id_curso");
-            $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
-            $stmt->execute();
-            $curso = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, instrutor_id, visualizacoes, PrecoCurso FROM cursos WHERE id = :id_curso");
+    $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+    $stmt->execute();
+    $curso = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Exibir os detalhes do curso
-            if ($curso) {
-                echo '<div class="container">';
-                echo '<div class="left-side">';
-                echo '<img class="course-image" src="../imagens/' . $curso['imagem'] . '" alt="Imagem do Curso">';
-                echo '<div class="course-info">';
-                echo '<h1>' . $curso['nome'] . '</h1>';
-                echo '<h2>Instrutor: ' . $curso['instrutor_id'] . '</h2>';
-                echo '<p>Visualizações: ' . $curso['visualizacoes'] . '</p>';
-                echo '<p>Preço: $' . $curso['PrecoCurso'] . '</p>';
-                echo '</div>';
-                echo '</div>';
-                echo '<div class="right-side">';
-                echo '<h2>Descrição do Curso</h2>';
-                echo '<p>' . $curso['descricao'] . '</p>';
-                echo '<div class="buy-button">';
-                echo '<a href="#">Adicionar ao Carrinho</a>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-            } else {
-                echo "<p>Curso não encontrado.</p>";
-            }
-        } else {
-            echo "<p>ID do curso não fornecido.</p>";
-        }
-    ?>
-    
+    if ($curso) {
+        echo '<div class="container">';
+        echo '<div class="left-side">';
+        echo '<img class="course-image" src="../imagens/' . $curso['imagem'] . '" alt="Imagem do Curso">';
+        echo '<div class="course-info">';
+        echo '<h1>' . $curso['nome'] . '</h1>';
+        echo '<h2>Instrutor: ' . $curso['instrutor_id'] . '</h2>';
+        echo '<p>Visualizações: ' . $curso['visualizacoes'] . '</p>';
+        echo '<p>Preço: $' . $curso['PrecoCurso'] . '</p>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="right-side">';
+        echo '<h2>Descrição do Curso</h2>';
+        echo '<p>' . $curso['descricao'] . '</p>';
+        
+        // Adicionando formulário para comprar o curso
+        echo '<form method="post" action="processar_compra.php">';
+        echo '<input type="hidden" name="id_curso" value="' . $curso['id'] . '">';
+        echo '<input type="hidden" name="preco_curso" value="' . $curso['PrecoCurso'] . '">';
+        echo '<div class="buy-button">';
+        echo '<button type="submit">Comprar Curso</button>';
+        echo '</div>';
+        echo '</form>';
+        
+        echo '</div>';
+        echo '</div>';
+    } else {
+        echo "<p>Curso não encontrado.</p>";
+    }
+} else {
+    echo "<p>ID do curso não fornecido.</p>";
+}
+?>
+
 </html>
