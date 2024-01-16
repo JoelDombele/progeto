@@ -157,7 +157,7 @@ try {
             echo '<h2>' . $nome . '</h2>';
             echo '<p>' . $row['descricao'] . '</p>';
             echo '<b><p>Preço: $ Gratuito</p></b>';
-            echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Começar </a>';
+            echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
 
             echo '</div>';
         }

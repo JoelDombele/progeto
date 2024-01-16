@@ -75,7 +75,7 @@ try {
       echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
       echo '<h2>' . $nome . '</h2>';
       echo '<p>' . $row['descricao'] . '</p>';
-      echo '<a href="course.php?id=' . $row['id'] . '">Saiba mais</a>';
+      echo '<a href="visualizacao.php?id_curso=' . $row['id'] . '">Saiba mais</a>';
       echo '</div>';
   }
     echo '</div>';

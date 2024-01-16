@@ -81,6 +81,10 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .buy-button a:hover {
+            background-color: #333;
+        }
+
     </style>
 </head>
 <body>
@@ -117,7 +121,7 @@
                 echo '<h2>Descrição do Curso</h2>';
                 echo '<p>' . $curso['descricao'] . '</p>';
                 echo '<div class="buy-button">';
-                echo '<a href="#">Comprar</a>';
+                echo '<a href="#">Adicionar ao Carrinho</a>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
