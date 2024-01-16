@@ -16,7 +16,7 @@ if (isset($_GET['id_curso'])) {
         $stmt->execute();
 
         // Redireciona para outra página após atualizar o contador
-        header("Location: aulasUser.php?id_curso=$curso_id");
+        header("Location: detalhesCursos.php?id_curso=$curso_id");
         exit();
     } catch(PDOException $e) {
         echo "Erro ao atualizar contador de visualizações: " . $e->getMessage();
@@ -26,3 +26,4 @@ if (isset($_GET['id_curso'])) {
     echo "ID do curso não fornecido.";
 }
 ?>
+<

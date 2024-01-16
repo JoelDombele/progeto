@@ -8,53 +8,68 @@
   <style>
 /* Estilos básicos para a lista de cursos */
 .courses-list {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-.course {
-  width: 300px;
-  margin: 20px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
 
-.course img {
-  width: 100%;
-  height: 250px;
-  border-radius: 5px;
-}
+        .course {
+            background-color: #fff;
+            border-radius: 8px;
+            margin:12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
 
-.course h2 {
-  margin-top: 10px;
-  font-size: 1.5em;
-}
+        .course img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
 
-.course p {
-  margin-top: 5px;
-  font-size: 1em;
-}
+        .course h2 {
+            padding: 15px;
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
 
-.course a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
-}
+        .course p {
+            padding: 0 15px 15px;
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+        }
 
-.course a:hover {
-  background-color: #0056b3;
-}
+        .course p.price {
+            font-weight: bold;
+            color: #e44d26; /* Cor laranja do Udemy */
+        }
+
+        .course a {
+            display: block;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            background-color:  rgba(255, 0, 0, 0.712) ;;
+            color: #fff;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .course a:hover {
+            background-color: #333;
+        }
+
 .footer{
     width: 100%;
     min-height: 100px;
@@ -141,6 +156,7 @@ try {
             echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
             echo '<h2>' . $nome . '</h2>';
             echo '<p>' . $row['descricao'] . '</p>';
+            echo '<b><p>Preço: $ Gratuito</p></b>';
             echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Começar </a>';
 
             echo '</div>';

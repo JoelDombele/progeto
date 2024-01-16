@@ -7,12 +7,16 @@
   <link rel="stylesheet" href="../css/homepage.css">
   <style>
 /* Estilos básicos para a lista de cursos */
-        .courses-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1200px;
-        }
+        
+    .courses-list {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
 
         .course {
             background-color: #fff;
@@ -55,7 +59,7 @@
             padding: 10px 15px;
             text-align: center;
             text-decoration: none;
-            background-color: #e44d26; /* Cor laranja do Udemy */
+            background-color:  rgba(255, 0, 0, 0.712) ;;
             color: #fff;
             font-weight: bold;
             border-top: 1px solid #ddd;
@@ -94,7 +98,7 @@
         </div>
 </header>
 <div class="title">
-            <h1>Cursos Gratuitos</h1>
+            <h1>Cursos Pagos</h1>
             <div class="line"></div>
         </div>
 

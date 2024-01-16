@@ -61,6 +61,7 @@
 </li>
   <li><a href="login.php" class="ctn">Login</a></li>
   <li><a href="cadastrar.php" class="ctn">Sign in</a></li>
+  <li><a href="#"><img src="" alt=""></a></li>
 </ul>
  <img src="../imagens/menu-aberto.png" alt="" class="menu-bnt">
 
@@ -132,6 +133,7 @@
             echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
             echo '<h2>' . $nome . '</h2>';
             echo '<p>' . $row['descricao'] . '</p>';
+            echo '<b><p>Preço: $ Gratuito</p></b>';
             echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
 
             echo '</div>';

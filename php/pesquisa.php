@@ -5,74 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../css/homepage.css">
-  <style>
-/* Estilos básicos para a lista de cursos */
-.courses-list {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.course {
-  width: 300px;
-  margin: 20px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.course img {
-  width: 100%;
-  height: 250px;
-  border-radius: 5px;
-}
-
-.course h2 {
-  margin-top: 10px;
-  font-size: 1.5em;
-}
-
-.course p {
-  margin-top: 5px;
-  font-size: 1em;
-}
-
-.course a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
-}
-
-.course a:hover {
-  background-color: #0056b3;
-}
-.footer{
-    width: 100%;
-    min-height: 100px;
-    padding: 20px 80px;
-    margin: 0;
-    background-color: #484872;
-    text-align: center;
-
-}
-.footer p{
-    color: whitesmoke;
-    margin: 20px auto;
-    padding: 20px auto ;
-}
-
-
-</style>
-
+  <link rel="stylesheet" href="../css/listagemCursos.css">
 </head>
 <body>
 <nav class="navBar">
