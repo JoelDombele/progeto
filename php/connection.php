@@ -3,7 +3,7 @@ class DB {
     private $host = 'localhost';
     private $db_name = 'ead';
     private $username = 'root';
-    private $password = '';
+    private $password = 'joel4002'; // Substitua pela nova senha que você definiu
     private $conn;
 
     public function connect() {
@@ -20,7 +20,6 @@ class DB {
     }
 }
 ?>
-
 
 
 
