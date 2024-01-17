@@ -111,7 +111,7 @@
         $database = new DB();
         $conn = $database->connect();
 
-          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem FROM cursos WHERE visualizacoes > 1");
+          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, PrecoCurso FROM cursos WHERE visualizacoes > 1");
           $stmt->execute();
           
           echo '<!DOCTYPE html>';
@@ -128,12 +128,13 @@
             $foto = $row['imagem'];
             $nome = $row['nome'];
             $id_curso = $row['id'];
+            $preco = $row['PrecoCurso'];
 
             echo '<div class="course">';
             echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
             echo '<h2>' . $nome . '</h2>';
             echo '<p>' . $row['descricao'] . '</p>';
-            echo '<b><p>Preço: $ Gratuito</p></b>';
+            echo '<b><p>Preço: $'.$preco. '</p></b>';
             echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
 
             echo '</div>';

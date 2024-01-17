@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insere o caminho do arquivo de imagem no banco de dados
     $caminho_completo = $resultadoUpload; // Defina o caminho completo da imagem após o upload
 
-    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, PrecoCurso, MetodoPagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
+    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, PrecoCurso, metodo_Pagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
 
     $stmt->bindParam(':nome', $nome_curso);
     $stmt->bindParam(':categoria_id', $categoria_id);
