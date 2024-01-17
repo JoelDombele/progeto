@@ -13,7 +13,7 @@
             $nome_categoria = $_POST['nome_categoria'];
             $desc_categoria = $_POST['desc_categoria'];
 
-            $stmt = $conn->prepare("INSERT INTO categorias (nome, descricao) VALUES (:nome_categoria, :desc_categoria)");
+            $stmt = $conn->prepare("INSERT INTO categorias (nom, descricao) VALUES (:nome_categoria, :desc_categoria)");
             $stmt->bindParam(':nome_categoria', $nome_categoria);
             $stmt->bindParam(':desc_categoria', $desc_categoria);
 
