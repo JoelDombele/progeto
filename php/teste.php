@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // Executa a função de upload da imagem
     $arquivo = $_FILES['imagem'];
-    $diretorioDestino = '/var/www/html/progeto/imagens/'; // Substitua pelo seu diretório real
+    $diretorioDestino = 'C:\xampp\htdocs\joel\progeto\imagens'; // Substitua pelo seu diretório real
 
     $resultadoUpload = uploadImagem($arquivo, $diretorioDestino);
 

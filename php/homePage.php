@@ -178,7 +178,7 @@
         </div>
     </section>
     <section class="footer">
-        <p>Explore as capacidades do seu cerebro. Projeto desenvolvido pelo grupo nº 2</p>
+        <p>Explore as capacidades do seu cerebro. </p>
         <p>Copyright @ 2023 EAD</p>
     </section>
 
