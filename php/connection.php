@@ -1,7 +1,7 @@
 <?php
 class DB {
     private $host = '127.0.0.1';
-    private $port = 8000; // Altere para a porta correta, se não for 8000
+   
     private $db_name = 'ead';
     private $username = 'root';
     private $password = '';
