@@ -1,19 +1,23 @@
 <?php
 class DB {
-    private $host = 'localhost';
+    private $host = '127.0.0.1';
+    private $port = 8000; // Altere para a porta correta, se não for 8000
     private $db_name = 'ead';
     private $username = 'root';
-    private $password = ''; 
+    private $password = '';
     private $conn;
 
     public function connect() {
         $this->conn = null;
 
         try {
-            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db_name", $this->username, $this->password);
+            $this->conn = new PDO("mysql:host=$this->host;port=$this->port;dbname=$this->db_name;charset=utf8", $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
-            echo 'Erro de conexão: ' . $e->getMessage();
+            // Registre o erro em um arquivo de log ou no sistema de monitoramento
+            error_log('Erro de conexão: ' . $e->getMessage());
+            // Forneça uma mensagem genérica ao usuário
+           
         }
 
         return $this->conn;
