@@ -131,6 +131,19 @@
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <h1 class="text-3xl font-bold tracking-tight text-gray-900">Painel do Instrutor</h1>
     </div>
+
+    <script>
+    // Obtém referências aos elementos
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userMenu = document.getElementById('user-menu');
+
+    // Adiciona um ouvinte de evento de clique à imagem
+    userMenuButton.addEventListener('click', () => {
+        // Alternar a visibilidade do bloco
+        userMenu.style.display = userMenu.style.display === 'none' || userMenu.style.display === '' ? 'block' : 'none';
+    });
+</script>
+
   </header>
   <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
