@@ -1,6 +1,6 @@
 <?php
             // Abre uma conexão com o banco de dados
-            require_once 'connection.php';
+            require_once '../php/connection.php';
 
             $database = new DB();
             $conn = $database->connect();
@@ -27,8 +27,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../css/homePage.css">
-    <link rel="stylesheet" href="../css/listagemCursos.css">
+    <link rel="stylesheet" href="homePage.php">
+    <link rel="stylesheet" href="listagemCursos.css">
 
 </head>
 <body>
@@ -64,7 +64,7 @@
   <li><a href="cadastrar.php" class="ctn">Sign in</a></li>
   <li><a href="#"><img src="" alt=""></a></li>
 </ul>
- <img src="../imagens/menu-aberto.png" alt="" class="menu-bnt">
+ <img src="/imagens/menu-aberto.png" alt="" class="menu-bnt">
 
     </nav>
     <header>
@@ -112,7 +112,7 @@
         $database = new DB();
         $conn = $database->connect();
 
-          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, PrecoCurso FROM cursos WHERE visualizacoes > 1");
+          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, preco_curso FROM cursos WHERE visualizacoes > 1");
           $stmt->execute();
           
           echo '<!DOCTYPE html>';
