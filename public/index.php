@@ -1,6 +1,6 @@
 <?php
             // Abre uma conexão com o banco de dados
-            require_once '../php/connection.php';
+            require_once "../php/connection.php";
 
             $database = new DB();
             $conn = $database->connect();
@@ -27,8 +27,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="homePage.php">
-    <link rel="stylesheet" href="listagemCursos.css">
+    <link rel="stylesheet" href="../php/homePage.php">
+    <link rel="stylesheet" href="../ph/listagemCursos.css">
 
 </head>
 <body>
