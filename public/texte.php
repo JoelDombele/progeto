@@ -22,7 +22,7 @@
               <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Cursos</a>
               <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Categorias</a>
               <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
-              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">instrutor</a>
             </div>
           </div>
         </div>
@@ -135,15 +135,17 @@
 
   </header>
   <main>
-  <div class="flex-1 bg-cover bg-center relative" style="background-image: url('https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557399_960_720.jpg'); height: 70vh;"> <!-- 70vh é 70% da altura da tela -->
+  <div class="flex-1 bg-cover bg-center relative" style="background-image: url('https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557399_960_720.jpg'); height: 70vh;">
     <!-- Conteúdo centralizado dentro da faca -->
-    <svg class="w-6 h-6 mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-    <input type="text" placeholder="Pesquisar..." class="outline-none border-none bg-transparent focus:ring-0">
-  
-    <div class="absolute inset-0 flex items-center justify-center">
-      <p class="text-white text-4xl font-bold">Encontre a tua inspiração</p>
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+      <p class="text-white text-4xl font-bold mb-8">Encontre a tua inspiração</p>
+      <!-- Barra de pesquisa centralizada -->
+      <div class="w-1/3 flex items-center bg-white p-2 rounded-full shadow-md">
+        <svg class="w-6 h-6 mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" placeholder="Pesquise Qualquer curso..." class="outline-none border-none bg-transparent focus:ring-0">
+      </div>
     </div>
   </div>
   </main>
