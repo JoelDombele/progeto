@@ -1,3 +1,26 @@
+<?php
+            // Abre uma conexão com o banco de dados
+            require_once "../php/connection.php";
+
+            $database = new DB();
+            $conn = $database->connect();
+
+            // Prepara uma consulta SQL
+            $stmt = $conn->prepare("SELECT id, nome FROM categorias");
+
+            // Executa a consulta SQL
+            $stmt->execute();
+
+            // Obtém os resultados da consulta SQL
+            $categorias = $stmt->fetchAll();
+
+            // Fecha a conexão com o banco de dados
+            $conn = null;
+
+            // Cria as opções do select
+            
+            ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,6 +171,48 @@
       </div>
     </div>
   </div>
+  <p class="text-black text-4xl font-bold mb-8">Cursos Populares</p>
+
+  <?php
+
+$database = new DB();
+$conn = $database->connect();
+
+  $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, preco_curso FROM cursos WHERE visualizacoes > 1");
+  $stmt->execute();
+  
+  echo '<!DOCTYPE html>';
+echo '<html lang="en">';
+echo '<head>';
+echo '<meta charset="UTF-8">';
+echo '<title>Lista de Cursos</title>';
+echo '<link rel="stylesheet" href="styles.css">';
+echo '</head>';
+echo '<body>';
+echo '<div class="courses-list">';
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $foto = $row['imagem'];
+    $nome = $row['nome'];
+    $id_curso = $row['id'];
+    $preco = $row['PrecoCurso'];
+
+    echo '<div class="course">';
+    echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
+    echo '<h2>' . $nome . '</h2>';
+    echo '<p>' . $row['descricao'] . '</p>';
+    echo '<b><p>Preço: $'.$preco. '</p></b>';
+    echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
+
+    echo '</div>';
+}
+
+echo '</div>';
+echo '</body>';
+echo '</html>';
+
+?>
+
   </main>
 </div>
 
