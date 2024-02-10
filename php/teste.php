@@ -2,6 +2,11 @@
 <?php
 require_once 'connection.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 function uploadImagem($arquivo, $diretorioDestino) {
     if (isset($arquivo['name']) && isset($arquivo['tmp_name'])) {
         $nomeArquivo = $arquivo['name'];
@@ -52,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // Executa a função de upload da imagem
     $arquivo = $_FILES['imagem'];
-    $diretorioDestino = 'C:\xampp\htdocs\joel\progeto\imagens'; // Substitua pelo seu diretório real
+    $diretorioDestino = '/var/www/html/progeto/imagens'; // Substitua pelo seu diretório real
 
     $resultadoUpload = uploadImagem($arquivo, $diretorioDestino);
 
@@ -65,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insere o caminho do arquivo de imagem no banco de dados
     $caminho_completo = $resultadoUpload; // Defina o caminho completo da imagem após o upload
 
-    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, PrecoCurso, metodo_Pagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
+    $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, preco_curso, metodo_Pagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
 
     $stmt->bindParam(':nome', $nome_curso);
     $stmt->bindParam(':categoria_id', $categoria_id);
@@ -79,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         $mensagem = "Cadastro feito com sucesso!";
         echo "<script type='text/javascript'> alert('$mensagem');</script>";
+        header();
     } else {
         echo 'Erro ao criar registro.';
     }

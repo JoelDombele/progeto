@@ -167,7 +167,11 @@
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+           
+          background-color: #f2f2f2;
+        }
+        td{
+          color:black;
         }
         .btn-editar, .btn-eliminar {
             padding: 5px 10px;
@@ -234,7 +238,7 @@
                 // Exibir os cursos como linhas de tabela com links clicáveis e botões de editar/eliminar
                 echo "<tr>";
                 echo "<td>$id_curso</td>";
-                echo "<td> <a href='listarAula.php?id_curso=$id_curso'>$nome_curso</a/td>";
+                echo "<td> <a href='listarAula.php?id_curso=$id_curso' class='text-black'>$nome_curso</a/td>";
                 echo "<td>$nome_categoria</td>";
                 echo "<td>
                         <a href='editarCurso.php?id_curso=$id_curso' class='btn-editar'>Editar</a>

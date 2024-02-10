@@ -27,8 +27,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../css/homePage.css">
-    <link rel="stylesheet" href="../css/listagemCursos.css">
+    <link rel="stylesheet" href="../css/homePage.php">
+    <link rel="stylesheet" href="../css/alistagemCursos.css">
 
 </head>
 <body>
@@ -112,7 +112,7 @@
         $database = new DB();
         $conn = $database->connect();
 
-          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, PrecoCurso FROM cursos WHERE visualizacoes > 1");
+          $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, preco_curso FROM cursos WHERE visualizacoes > 1");
           $stmt->execute();
           
           echo '<!DOCTYPE html>';
