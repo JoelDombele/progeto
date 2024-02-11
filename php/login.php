@@ -1,48 +1,52 @@
 <?php
+session_start();
 
-require_once("connection.php");
+require_once 'connection.php';
 
-$error = null;
+$database = new DB();
+$conn = $database->connect();
 
+// Verificar se o formulário foi enviado usando o método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['login'])) {
+    // Obter dados do formulário
+    $username = isset($_POST['nome']) ? $_POST['nome'] : null;
+    $password = isset($_POST['senha']) ? $_POST['senha'] : null;
 
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-
-        // Validar e limpar a entrada
-        $email = trim($email);
-        $senha = trim($senha);
-
-        $database = new DB();
-        $conn = $database->connect();
-
-        // Use uma cláusula WHERE para verificar a combinação de email e senha_hash
-        $query = "SELECT email, senha FROM usuario WHERE email = :email";
-
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':email', $email);
+    // Verificar se as chaves estão definidas
+    if ($username !== null && $password !== null) {
+        // Consultar o banco de dados para verificar as credenciais
+        $sql = "SELECT usuario_id, senha FROM usuario WHERE nome = :nome";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':nome', $username);
         $stmt->execute();
 
+        $errorInfo = $stmt->errorInfo();
+if ($errorInfo[0] !== '00000') {
+    echo "Erro na execução da consulta SQL: " . $errorInfo[2];
+    exit();
+}
+
         if ($stmt->rowCount() > 0) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($senha, $result['senha'])) {
-                header("Location: ../php/dashboard.php");
-                exit;
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Verificar a senha (use uma função de hash segura, como password_hash())
+            if (password_verify($password, $row['senha'])) {
+                // Credenciais válidas, criar uma sessão
+                $_SESSION['user_id'] = $row['usuario_id'];
+                header("Location: pagina_inicial.php"); // Redirecionar para a página inicial após o login
+                exit();
             } else {
-                $error = "A senha está incorreta.";
+                echo "Senha incorreta.";
             }
         } else {
-            $error = "O email não está cadastrado.";
+            echo "Usuário não encontrado.";
         }
+    } else {
+        echo "Dados do formulário não estão presentes.";
     }
 }
-?>
 
-<!-- Exibir mensagem de erro, se houver -->
-<?php if ($error): ?>
-    <p><?= $error ?></p>
-<?php endif; ?>    
+$conn = null; // Fechar a conexão
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="form">
     <h1>Login</h1>
-    <input type="email"  placeholder="Email" name="email">
+    <input type="text"  placeholder="Nome_Usuario" name="nome">
     <br><br>
     <input type="password" placeholder="Senha" name="senha">
     <br><br>

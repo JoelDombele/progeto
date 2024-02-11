@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         $mensagem = "Cadastro feito com sucesso!";
         echo "<script type='text/javascript'> alert('$mensagem');</script>";
-        header();
+        
     } else {
         echo 'Erro ao criar registro.';
     }
