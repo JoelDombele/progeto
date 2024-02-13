@@ -6,7 +6,7 @@ session_start();
 
 // Verifique se o usuário está autenticado
 $id_curso = $_POST['id_curso'];
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['usuario'])) {
     header("Location: detalhesCursos.php?id_curso=$id_curso");
 
     exit(); // Encerre o script se o usuário não estiver autenticado

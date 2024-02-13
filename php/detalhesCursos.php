@@ -71,7 +71,7 @@
                     const dialog = document.getElementById("dialog");
 
                     openDialogBtn.addEventListener("click", function (event) {
-                        <?php if (!isset($_SESSION['usuario_id'])) : ?>
+                        <?php if (!isset($_SESSION['usuario'])) : ?>
                             event.preventDefault(); // Impede o envio imediato do formulário
                             dialog.classList.remove('hidden');
                         <?php else : ?>

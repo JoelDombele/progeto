@@ -3,49 +3,61 @@ session_start();
 
 require_once 'connection.php';
 
-$database = new DB();
-$conn = $database->connect();
+function dd($value) {
+    echo ("<pre>");
+    var_dump($value);
+    echo ("</pre>");
+    die();
+}
 
 // Verificar se o formulário foi enviado usando o método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obter dados do formulário
-    $username = isset($_POST['nome']) ? $_POST['nome'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
     $password = isset($_POST['senha']) ? $_POST['senha'] : null;
 
     // Verificar se as chaves estão definidas
-    if ($username !== null && $password !== null) {
-        // Consultar o banco de dados para verificar as credenciais
-        $sql = "SELECT usuario_id, senha FROM usuario WHERE nome = :nome";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':nome', $username);
-        $stmt->execute();
+    if ($email !== null && $password !== null) {
+        try {
+            $database = new DB();
+            $conn = $database->connect();
+        } catch (\Throwable $e) {
+            die("Erro ao conectar ao banco de dados: {$e}");
+        }
 
-        $errorInfo = $stmt->errorInfo();
-if ($errorInfo[0] !== '00000') {
-    echo "Erro na execução da consulta SQL: " . $errorInfo[2];
-    exit();
-}
+        try {
+            $query = "SELECT * FROM usuario WHERE email = :email";
 
-        if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            // Verificar a senha (use uma função de hash segura, como password_hash())
-            if (password_verify($password, $row['senha'])) {
-                // Credenciais válidas, criar uma sessão
-                $_SESSION['user_id'] = $row['usuario_id'];
-                header("Location: pagina_inicial.php"); // Redirecionar para a página inicial após o login
-                exit();
+            // Preparar a consulta
+            $stmt = $conn->prepare($query);
+
+            // Executar a consulta com os parâmetros
+            $stmt->execute(['email' => $email]);
+
+            // Buscar o usuário no banco
+            $usuario = $stmt->fetch();
+            // Caso não for encontrado nenhum usuário, $usuario = false
+            if (!$usuario) {
+                echo "Usuário não encontrado.";
             } else {
-                echo "Senha incorreta.";
+                // Verifica se a senha bate com a Hash
+                if (password_verify($password, $usuario['senhaHash'])) {
+                    $_SESSION['usuario'] = [
+                        'id' => $usuario['id'],
+                        'email' => $usuario['email']
+                    ];
+                    header("location: lar.php");
+                } else {
+                    echo "Senha incorreta.";
+                }
             }
-        } else {
-            echo "Usuário não encontrado.";
+        } catch (\Throwable $e) {
+            die("Erro ao autenticar usuário: {$e}");
         }
     } else {
         echo "Dados do formulário não estão presentes.";
     }
 }
-
-$conn = null; // Fechar a conexão
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +73,7 @@ $conn = null; // Fechar a conexão
 
 <div class="form">
     <h1>Login</h1>
-    <input type="text"  placeholder="Nome_Usuario" name="nome">
+    <input type="text"  placeholder="Email" name="email">
     <br><br>
     <input type="password" placeholder="Senha" name="senha">
     <br><br>
