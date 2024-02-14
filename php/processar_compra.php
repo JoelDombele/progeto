@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $preco_curso = $_POST['preco_curso'];
 
         // Obtém o ID do usuário a partir da sessão
-        $usuario_id = $_SESSION['usuario_id'];
+        $usuario_id = $_SESSION['usuario'];
 
         // Adicione a compra ao banco de dados
         $database = new DB();

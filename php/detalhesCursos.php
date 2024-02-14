@@ -10,6 +10,7 @@
 
 <body>
     <?php
+    session_start();
     require_once 'connection.php';
 
     if (isset($_GET['id_curso'])) {
