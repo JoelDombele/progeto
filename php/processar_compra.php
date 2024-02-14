@@ -20,10 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtém o ID do usuário a partir da sessão
         $usuario_id = $_SESSION['usuario'];
 
-        // Adicione a compra ao banco de dados
+        // Verifique se o usuário já está inscrito no curso
         $database = new DB();
         $conn = $database->connect();
 
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM inscricoes WHERE curso_id = :curso_id AND usuario_id = :usuario_id");
+        $stmt->bindParam(':curso_id', $id_curso, PDO::PARAM_INT);
+        $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $inscrito = $stmt->fetchColumn();
+
+        if ($inscrito > 0) {
+            echo "Você já está inscrito neste curso! Acesse seus cursos em 'Meus Cursos'.";
+            exit(); // Encerre o script após exibir a mensagem
+        }
+
+        // Adicione a compra ao banco de dados
         $stmt = $conn->prepare("INSERT INTO inscricoes (curso_id, usuario_id) VALUES (:curso_id, :usuario_id)");
         $stmt->bindParam(':curso_id', $id_curso, PDO::PARAM_INT);
         $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
