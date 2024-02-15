@@ -1,4 +1,16 @@
 <?php
+session_start();
+
+// Verificar se as variáveis de sessão estão definidas
+if (isset($_SESSION['usuario'])) {
+    echo "ID do Usuário: " . $_SESSION['usuario']['id'] . "<br>";
+    echo "Email do Usuário: " . $_SESSION['usuario']['email'] . "<br>";
+} else {
+    echo "Usuário não autenticado.";
+}
+?>
+
+<?php
 require_once 'connection.php';
 
 // Inicie ou retome a sessão
@@ -18,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $preco_curso = $_POST['preco_curso'];
 
         // Obtém o ID do usuário a partir da sessão
-        $usuario_id = $_SESSION['usuario'];
+        $usuario_id =  $_SESSION['usuario']['id'];
 
         // Verifique se o usuário já está inscrito no curso
         $database = new DB();
@@ -50,5 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     echo "Acesso inválido ao script.";
+}
+?>
+
+<?php
+session_start();
+
+// Verificar se as variáveis de sessão estão definidas
+if (isset($_SESSION['usuario'])) {
+    echo "ID do Usuário: " . $_SESSION['usuario']['id'] . "<br>";
+    echo "Email do Usuário: " . $_SESSION['usuario']['email'] . "<br>";
+} else {
+    echo "Usuário não autenticado.";
 }
 ?>

@@ -46,6 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'id' => $usuario['id'],
                         'email' => $usuario['email']
                     ];
+                   // $_SESSION['usuario_nome'] = $usuario['nome'];
+
                     header("location: lar.php");
                 } else {
                     echo "Senha incorreta.";

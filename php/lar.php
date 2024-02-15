@@ -1,5 +1,6 @@
 <?php
             // Abre uma conexão com o banco de dados
+            session_start();
             require_once "connection.php";
 
             $database = new DB();
@@ -257,3 +258,14 @@ Explore as vastidões do seu cérebro, pois é nesse território que encontramos
 
 </body>
 </html>
+<?php
+session_start();
+
+// Verificar se as variáveis de sessão estão definidas
+if (isset($_SESSION['usuario'])) {
+    echo "ID do Usuário: " . $_SESSION['usuario']['id'] . "<br>";
+    echo "Email do Usuário: " . $_SESSION['usuario']['email'] . "<br>";
+} else {
+    echo "Usuário não autenticado.";
+}
+?>

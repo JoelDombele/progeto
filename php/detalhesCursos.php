@@ -94,6 +94,17 @@
         echo "<p class='text-center text-red-500'>ID do curso não fornecido.</p>";
     }
     ?>
+    <?php
+session_start();
+
+// Verificar se as variáveis de sessão estão definidas
+if (isset($_SESSION['usuario'])) {
+    echo "ID do Usuário: " . $_SESSION['usuario']['id'] . "<br>";
+    echo "Email do Usuário: " . $_SESSION['usuario']['email'] . "<br>";
+} else {
+    echo "Usuário não autenticado.";
+}
+?>
 </body>
 
 </html>
