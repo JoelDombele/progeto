@@ -54,33 +54,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        /* Adicione estilos personalizados aqui, se necessário */
+    </style>
 </head>
-<body class="view">
-<main>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
+    <main class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <form method="post" class="bg-white p-8 rounded shadow-md">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold mb-4">Registra-te</h1>
+                <input type="text" class="w-full p-2 border border-gray-300 rounded" name="nome" required placeholder="Nome">
+            </div>
 
+            <div class="mb-6">
+                <input type="email" class="w-full p-2 border border-gray-300 rounded" name="email" required placeholder="Email">
+            </div>
 
-<form  method="post">
+            <div class="mb-6">
+                <input type="password" class="w-full p-2 border border-gray-300 rounded" name="senha" required placeholder="Senha">
+            </div>
 
-   <div class="form">
-        <h1>Registra-te</h1>
-        <input type="text" name="nome" required placeholder="Nome">
-        <br><br>
-        <input type="email" name="email" required placeholder="Email">
-        <br><br>
-        <input type="password" name="senha" required placeholder="Senha">
-        <br><br>
+            <div class="mb-6">
+                <input type="submit" value="Enviar" name="confirmar" class="bg-blue-500 text-white p-2 rounded cursor-pointer">
+            </div>
+        </form>
+    </main>
 
-        <input type="submit" value="Enviar" name="confirmar">
-         
-        
-        </div>
-
-
-</form>
-</main>
 </body>
 </html>

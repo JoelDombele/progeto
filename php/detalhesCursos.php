@@ -105,6 +105,7 @@ if (isset($_SESSION['usuario'])) {
     echo "Usuário não autenticado.";
 }
 ?>
+
 </body>
 
 </html>

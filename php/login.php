@@ -66,22 +66,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocumeRent</title>
-    <link rel="stylesheet" href="../css/suzana.css">
+    <title>Login</title>
+    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        /* Adicione estilos personalizados aqui, se necessário */
+    </style>
 </head>
-<body class="view">
-<form  method="post">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
+    <form method="post" class="bg-white p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold mb-4">Login</h1>
+            <input type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="Email" name="email">
+        </div>
 
-<div class="form">
-    <h1>Login</h1>
-    <input type="text"  placeholder="Email" name="email">
-    <br><br>
-    <input type="password" placeholder="Senha" name="senha">
-    <br><br>
-    <input type="submit" value="Entrar" name="login" >
-    <p>Tens uma conta ? <a href="../php/cadastrar.php">Registra-te</a></p>
-    </div>
+        <div class="mb-6">
+            <input type="password" class="w-full p-2 border border-gray-300 rounded" placeholder="Senha" name="senha">
+        </div>
+
+        <div class="mb-6">
+            <input type="submit" value="Entrar" name="login" class="bg-blue-500 text-white p-2 rounded cursor-pointer">
+        </div>
+
+        <p>Não tem uma conta? <a href="cadastrar.php" class="text-blue-500">Registre-se</a></p>
+    </form>
+
+</body>
+</html>
 
 
 </form>
