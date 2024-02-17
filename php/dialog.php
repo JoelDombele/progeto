@@ -20,7 +20,7 @@
 
         closeDialogBtn.addEventListener("click", function () {
             dialog.classList.add('hidden');
-            window.location.href = 'detalhesCursos.php';
+          
         });
     });
 </script>

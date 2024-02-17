@@ -38,7 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch();
             // Caso não for encontrado nenhum usuário, $usuario = false
             if (!$usuario) {
-                echo "Usuário não encontrado.";
+                $dialogIcon = "&#x26A0;&#xFE0F;";
+                $dialogTitle = "Erro";
+                $dialogMessage = "Usuario Não Encontrado.";
+
+                include 'dialog.php';
+                
             } else {
                 // Verifica se a senha bate com a Hash
                 if (password_verify($password, $usuario['senhaHash'])) {
@@ -50,7 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     header("location: lar.php");
                 } else {
-                    echo "Senha incorreta.";
+                    $dialogIcon = "&#x26A0;&#xFE0F;";
+                    $dialogTitle = "Erro";
+                    $dialogMessage = "Senha Incorreta.";
+                
+                    include 'dialog.php';
                 }
             }
         } catch (\Throwable $e) {

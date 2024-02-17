@@ -42,8 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             if (isset($_POST['submit'])) {
-                $mensagem = "Cadastro feito com sucesso!";
-                echo "<script type='text/javascript'> alert('$mensagem');</script>";
+                $dialogIcon = "&#x2705;";
+                $dialogTitle = "cadastro Realizado Realizada";
+                $dialogMessage = "Cadastro feito com sucesso.";
+
+    include 'dialog.php';
             }
         } else {
             echo 'Erro ao criar registro.';
