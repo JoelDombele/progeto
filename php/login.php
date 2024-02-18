@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="mb-6">
-            <input type="submit" value="Entrar" name="login" class="bg-blue-500 text-white p-2 rounded cursor-pointer">
+            <input type="submit" value="Entrar" name="login" class="w-full bg-blue-500 text-white p-2 rounded cursor-pointer">
         </div>
 
         <p>Não tem uma conta? <a href="cadastrar.php" class="text-blue-500">Registre-se</a></p>

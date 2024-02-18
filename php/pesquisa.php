@@ -32,7 +32,7 @@ try {
         echo '<img class="w-full h-32 object-cover mb-4" src="../imagens/' . $foto . '" alt="Imagem do Curso">';
         echo '<h2 class="text-lg font-semibold mb-2">' . $nome . '</h2>';
         echo '<p class="text-gray-600 mb-2">' . $descricao . '</p>';
-        echo '<a href="course.php?id=' . $row['id'] . '" class="block bg-blue-500 text-white rounded-full px-3 py-1 hover:bg-blue-600 transition duration-300 text-center">Saiba Mais</a>';
+        echo '<a href="detalhesCursos.php?id_curso=' . $row['id'] . '" class="block bg-blue-500 text-white rounded-full px-3 py-1 hover:bg-blue-600 transition duration-300 text-center">Saiba Mais</a>';
         echo '</div>';
     }
 

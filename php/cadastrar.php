@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-6">
-                <input type="submit" value="Enviar" name="confirmar" class="bg-blue-500 text-white p-2 rounded cursor-pointer">
+                <input type="submit" value="Enviar" name="confirmar" class="w-full bg-blue-500 text-white p-2 rounded cursor-pointer">
             </div>
         </form>
     </main>
