@@ -3,7 +3,8 @@ session_start();
 
 require_once 'connection.php';
 
-function dd($value) {
+function dd($value)
+{
     echo ("<pre>");
     var_dump($value);
     echo ("</pre>");
@@ -26,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         try {
-            $query = "SELECT * FROM usuario WHERE email = :email";
+            // Consulta para obter o instrutor com base no email
+            $query = "SELECT * FROM instrutores WHERE email = :email";
 
             // Preparar a consulta
             $stmt = $conn->prepare($query);
@@ -34,54 +36,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Executar a consulta com os parâmetros
             $stmt->execute(['email' => $email]);
 
-            // Buscar o usuário no banco
-            $usuario = $stmt->fetch();
-            // Caso não for encontrado nenhum usuário, $usuario = false
-            if (!$usuario) {
+            // Buscar o instrutor no banco
+            $instrutor = $stmt->fetch();
+
+            // Caso não for encontrado nenhum instrutor, $instrutor = false
+            if (!$instrutor) {
                 $dialogIcon = "&#x26A0;&#xFE0F;";
                 $dialogTitle = "Erro";
-                $dialogMessage = "Usuario Não Encontrado.";
+                $dialogMessage = "Instrutor Não Encontrado.";
 
                 include 'dialog.php';
-                
             } else {
                 // Verifica se a senha bate com a Hash
-                if (password_verify($password, $usuario['senhaHash'])) {
-                    $_SESSION['usuario'] = [
-                        'id' => $usuario['id'],
-                        'email' => $usuario['email']
+                if (password_verify($password, $instrutor['senhaHash'])) {
+                    $_SESSION['instrutor'] = [
+                        'id' => $instrutor['instrutor_id'],
+                        'email' => $instrutor['email']
                     ];
-                   // $_SESSION['usuario_nome'] = $usuario['nome'];
 
-                    header("location: lar.php");
+                    header("location: index.php");
                 } else {
                     $dialogIcon = "&#x26A0;&#xFE0F;";
                     $dialogTitle = "Erro";
                     $dialogMessage = "Senha Incorreta.";
-                
+
                     include 'dialog.php';
                 }
             }
         } catch (\Throwable $e) {
-            die("Erro ao autenticar usuário: {$e}");
+            die("Erro ao autenticar instrutor: {$e}");
         }
     } else {
         echo "Dados do formulário não estão presentes.";
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
+<?php include 'header.php'; ?>
+
+<div class="flex items-center justify-center mt-12 mb-12"> <!-- Adicionei as classes mt-12 e mb-12 para a margem superior e inferior -->
     <form method="post" class="bg-white p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
         <div class="mb-6">
             <h1 class="text-3xl font-bold mb-4">Login</h1>
@@ -98,14 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <p>Não tem uma conta? <a href="cadastrar.php" class="text-blue-500">Registre-se</a></p>
     </form>
+</div>
 
-</body>
-</html>
-
-
-</form>
-</body>
-</html>
-
-
-
+<?php include 'footer.php'; ?>

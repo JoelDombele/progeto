@@ -1,128 +1,70 @@
 <?php
-   require_once "connection.php";
-   $mensagem = "";
+// processar_cadastro_instrutor.php
 
-   $database = new DB();
-   $conn = $database->connect();
+// Inclua o código de conexão com o banco de dados
+require_once 'connection.php';
 
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['confirmar'])) {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-        if (strlen($nome) < 5) {
-            echo "O nome deve ter pelo menos 5 caracteres.";
-            exit;
-          }
-          
-          // Validação do e-mail
-          if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "O e-mail é inválido.";
-            exit;
-          }
-          
-          // Validação da senha
-          if (strlen($senha) < 8) {
-            echo "A senha deve ter pelo menos 8 caracteres.";
-            exit;
-          }
-          $stmt = $conn->prepare("INSERT INTO instrutor (instrutor_nome, instrutor_email, instrutor_senha) VALUES (:nome, :email, :senha)");
+// Inicializa a sessão (se não estiver usando session_start em outros lugares)
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recupera os dados do formulário
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senhaHash = password_hash($_POST['senhaHash'], PASSWORD_DEFAULT); // Recomendável usar hash de senha
+
+    // Validação e processamento adicional se necessário
+
+    // Conecta ao banco de dados
+    $database = new DB();
+    $conn = $database->connect();
+
+    try {
+        // Insere o instrutor na tabela de instrutores
+        $stmt = $conn->prepare("INSERT INTO instrutores (nome, email, senhaHash) VALUES (:nome, :email, :senhaHash)");
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
+        $stmt->bindParam(':senhaHash', $senhaHash);
 
-        if ($stmt->execute()) {
-            $mensagem = "Cadastro feito com sucesso !";
-            header("Location: ../php/cursos.php");
-        } else {
-            $mensagem = "Erro ao criar registro.";
+        // Executa a consulta
+        $stmt->execute();
+
+        // Obtém o ID do instrutor inserido
+        $instrutorId = $conn->lastInsertId();
+
+        // Insere as associações entre instrutor e categorias na tabela de instrutores_categorias
+        if (isset($_POST['categorias']) && is_array($_POST['categorias'])) {
+            foreach ($_POST['categorias'] as $categoriaId) {
+                // Adapte conforme a estrutura real da sua tabela instrutores_categorias
+                $stmtCategoria = $conn->prepare("INSERT INTO instrutores_categorias (instrutor_id, categoria_id) VALUES (:instrutorId, :categoriaId)");
+                $stmtCategoria->bindParam(':instrutorId', $instrutorId);
+                $stmtCategoria->bindParam(':categoriaId', $categoriaId);
+                $stmtCategoria->execute();
+            }
         }
+
+        // Redireciona para uma página de sucesso ou exibe uma mensagem
+        $dialogIcon = "&#x2705;";
+        $dialogTitle = "Cadastro Realizado";
+        $dialogMessage = "Cadastro feito com sucesso.";
+
+    include 'dialog.php';
+       
+    } catch (Exception $e) {
+        // Exibe uma mensagem de erro ou redireciona para uma página de erro
+        $dialogIcon = "&#x26A0;&#xFE0F;";
+        $dialogTitle = "ERRO !";
+        $dialogMessage = "ERRO AO CADASTRO.";
+
+        include 'dialog.php';
+    } finally {
+        // Fecha a conexão com o banco de dados
+        $conn = null;
     }
+} else {
+    // Redireciona para uma página de erro ou adota outra lógica de tratamento
+    $_SESSION['mensagem'] = "Requisição inválida!";
+    header("Location: erro.php");
+    exit();
 }
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/homepage.css">
-   
-</head>
-<body>
-<nav class="navBar">
-            <h1 class="logo">EAD</h1>
-            <ul class="nav-links">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Cursos</a></li>
-                <li><a href="#">Categorias</a></li>
-                <li><a href="login.php" class="ctn">Login</a></li>
-                <li><a href="cadastrar.php" class="ctn">sign in</a></li>
-            </ul>
-            <img src="../imagens/menu-aberto.png" alt="" class="menu-bnt">
-
-    </nav>
-<header class="instrutor">
-        <div class="overlay">
-            <div class="header-content">
-                <h2>Crie Conteudos e Ajude muitas mentes Evoluirem</h2>
-                <div class="line"></div>
-                <h1>Encontre a tua inspiração</h1>
-                <a href="#" class="ctn">Aprenda mais</a>
-            </div>
-        </div>
-</header>
-<section class="tours">
-        <div class="row">
-            <div class="col content-col">
-                <h1>Torne se um instrutor</h1>
-                <div class="line"></div>
-                <p>Ser um professor ou instrutor é abraçar o papel de inspiração, guiando mentes e corações rumo ao conhecimento  e crescimento. A cada aula, você não apenas transmite informações, mas planta sementes de curiosidade, desafiando alunos a explorarem seus limites e descobrirem o extraordinário.</p>
-               
-                
-        <a href="#" class="ctn">Explorar</a>
-            </div>
-            <div class="col image-col">
-                <form action="" method="post">
-                <div class="form">
-        <h1>Registra-te</h1>
-        <?php if (!empty($mensagem)) : ?>
-        <script type='text/javascript'>alert('<?php echo $mensagem; ?>');</script>
-    <?php endif; ?>
-        <input type="text" name="nome" required placeholder="Nome">
-        <br><br>
-        <input type="email" name="email" required placeholder="Email">
-        <br><br>
-        <input type="password" name="senha" required placeholder="Senha">
-        <br><br>
-        <input type="submit" value="Enviar" name="confirmar">
-    </div>
-</div> 
-                </form>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    
-
-
-        <section class="footer">
-        <p>Explore as capacidades do seu cerebro. Projeto desenvolvido pelo grupo nº 2</p>
-        <p>Copyright @ 2023 EAD</p>
-    </section>
-    <script>
-        const menuBnt = document.querySelector('.menu-bnt')
-        const navlinks = document.querySelector('.nav-links')
-
-        menuBnt.addEventListener('click',()=>{
-            navlinks.classList.toggle('mobile-menu')
-        })
-    </script>
-
-
-</form>
-    
-</body>
-</html>

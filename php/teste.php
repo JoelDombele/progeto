@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="../css/suzana.css">
 <?php
+session_start();
 require_once 'connection.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 
 function uploadImagem($arquivo, $diretorioDestino) {
     if (isset($arquivo['name']) && isset($arquivo['tmp_name'])) {
@@ -36,10 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = $database->connect();
 
     // Valida os dados do formulário
-    
     $nome_curso = trim($_POST["nome_curso"]);
     $categoria_id = $_POST["categoria"];
-    $instrutor_id = $_POST["instrutor"];
     $descricao = trim($_POST["descricao"]);
     $tiposSelecionados = implode(",", $_POST['tipo_curso']);
 
@@ -51,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // ... (código de validação dos campos do formulário) ...
 
-    if (empty($nome_curso) || $categoria_id === "" || $instrutor_id === "" || $imagem["error"] !== UPLOAD_ERR_OK || $imagem["size"] > 1000000) {
+    if (empty($nome_curso) || $categoria_id === "" || $imagem["error"] !== UPLOAD_ERR_OK || $imagem["size"] > 1000000) {
         echo "Erro nos dados do formulário.";
         exit;
     }
+
     // Executa a função de upload da imagem
     $arquivo = $_FILES['imagem'];
     $diretorioDestino = '/var/www/html/progeto/imagens'; // Substitua pelo seu diretório real
-
     $resultadoUpload = uploadImagem($arquivo, $diretorioDestino);
 
     // Verifica o resultado do upload da imagem
@@ -66,9 +63,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo $resultadoUpload;
         exit;
     }
+    // Verifica se o curso já existe no banco de dados
+$stmt_verificar_curso = $conn->prepare("SELECT COUNT(*) as total FROM cursos WHERE nome = :nome_curso");
+$stmt_verificar_curso->bindParam(':nome_curso', $nome_curso, PDO::PARAM_STR);
+$stmt_verificar_curso->execute();
+$resultado_verificacao = $stmt_verificar_curso->fetch(PDO::FETCH_ASSOC);
+
+if ($resultado_verificacao['total'] > 0) {
+    // Já existe um curso com esse nome
+    $dialogIcon = "&#x26A0;&#xFE0F;";
+    $dialogTitle = "ERRO";
+    $dialogMessage = "Já existe um curso com esse nome.";
+    include 'dialog.php';
+    exit;
+}
 
     // Insere o caminho do arquivo de imagem no banco de dados
     $caminho_completo = $resultadoUpload; // Defina o caminho completo da imagem após o upload
+
+    // Obtém o ID do instrutor da sessão
+    $instrutor_id = isset($_SESSION['instrutor']) ? $_SESSION['instrutor']['id'] : null;
+    
+    // Verifica se a categoria do instrutor é compatível com a categoria do curso
+$stmt_instrutor_categoria = $conn->prepare("SELECT categoria_id FROM instrutores_categorias WHERE instrutor_id = :instrutor_id");
+$stmt_instrutor_categoria->bindParam(':instrutor_id', $instrutor_id, PDO::PARAM_INT);
+$stmt_instrutor_categoria->execute();
+$instrutor_categoria = $stmt_instrutor_categoria->fetch(PDO::FETCH_ASSOC);
+
+
+if (!$instrutor_categoria) {
+    // O instrutor não tem uma categoria associada
+    $dialogIcon = "&#x26A0;&#xFE0F;";
+    $dialogTitle = "ERRO";
+    $dialogMessage = "O instrutor não tem uma categoria associada.";
+    include 'dialog.php';
+    exit;
+}
+
+if ($instrutor_categoria['categoria_id'] !== $categoria_id) {
+    // A categoria do instrutor não é compatível com a categoria do curso
+    $dialogIcon = "&#x26A0;&#xFE0F;";
+    $dialogTitle = "ERRO";
+    $dialogMessage = "A categoria do instrutor não é compatível com a categoria do curso.";
+    include 'dialog.php';
+    exit;
+}
+
+    // Continua com o restante do seu código...
 
     $stmt = $conn->prepare("INSERT INTO cursos (nome, categoria_id, instrutor_id, descricao, tipo_curso, preco_curso, metodo_Pagamento, imagem) VALUES (:nome, :categoria_id, :instrutor_id, :descricao, :tipo_curso, :preco_curso, :metodo_pagamento, :imagem)");
 
@@ -82,14 +123,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindParam(':imagem', $caminho_completo);
 
     if ($stmt->execute()) {
-        $mensagem = "Cadastro feito com sucesso!";
-        echo "<script type='text/javascript'> alert('$mensagem');</script>";
-        
+        $dialogIcon = "&#x2705;";
+        $dialogTitle = "Cadastro Realizado";
+        $dialogMessage = "Cadastro feito com sucesso.";
+        include 'dialog.php';
     } else {
         echo 'Erro ao criar registro.';
     }
 }
-?>
 
 
 
@@ -98,134 +139,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Cursos</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .btn-editar, .btn-eliminar {
-            padding: 5px 10px;
-            text-decoration: none;
-            color: #fff;
-            border-radius: 4px;
-            margin-right: 5px;
-        }
-        .btn-editar {
-            background-color: #007bff;
-        }
-        .btn-eliminar {
-            background-color: #dc3545;
-        }
-        table a {
-            color: white;
-            text-decoration: none;
-        }
-        h1{
-            color: white;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h1>Lista de Cursos</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Categoria</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            require_once 'connection.php';
-
-            // Criar um objeto de conexão
-            $database = new DB();
-            $conn = $database->connect();
-
-            // Consulta ao banco de dados para obter os cursos
-            $query = "SELECT id, nome, categoria_id FROM cursos";
-            $stmt = $conn->prepare($query);
-            $stmt->execute();
-
-            // Exibir a lista de cursos em forma de tabela
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $id_curso = $row['id'];
-                $nome_curso = $row['nome'];
-                $categoria_id = $row['categoria_id'];
-
-                // Consulta para obter o nome da categoria
-                $query_categoria = "SELECT nome FROM categorias WHERE id = :categoria_id";
-                $stmt_categoria = $conn->prepare($query_categoria);
-                $stmt_categoria->bindParam(':categoria_id', $categoria_id, PDO::PARAM_INT);
-                $stmt_categoria->execute();
-                $categoria = $stmt_categoria->fetch(PDO::FETCH_ASSOC);
-                $nome_categoria = ($categoria && isset($categoria['nome'])) ? $categoria['nome'] : "Não especificado";
-
-                // Exibir os cursos como linhas de tabela com links clicáveis e botões de editar/eliminar
-                echo "<tr>";
-                echo "<td>$id_curso</td>";
-                echo "<td> <a href='listarAula.php?id_curso=$id_curso'>$nome_curso</a/td>";
-                echo "<td>$nome_categoria</td>";
-                echo "<td>
-                        <a href='editarCurso.php?id_curso=$id_curso' class='btn-editar'>Editar</a>
-                        <a href='teste.php?id_curso=$id_curso' class='btn-eliminar'>Eliminar</a>
-                      </td>";
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-
-    <?php
-require_once 'connection.php';
-
-$mensagem = ""; // Inicializa a variável de mensagem
-
-// Criar um objeto de conexão
-$database = new DB();
-$conn = $database->connect();
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Verifica se foi passado um ID na URL para exclusão
-    if(isset($_GET['id_curso']) && !empty($_GET['id_curso'])) {
-        $id_curso = $_GET['id_curso'];
-
-        // Prepara a declaração SQL para excluir o curso
-        $query = "DELETE FROM cursos WHERE id = :id_curso";
-        $stmt = $conn->prepare($query);
-
-        // Vincula o parâmetro ID à declaração
-        $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            $mensagem = "Curso excluído com sucesso.";
-        } else {
-            $mensagem = "Erro ao excluir o curso.";
-        }
-    } else {
-        $mensagem = "ID do curso não fornecido para exclusão.";
-    }
-}
-?>
-
-</body>
-</html>
