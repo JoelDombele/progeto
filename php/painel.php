@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'email' => $instrutor['email']
                     ];
 
-                    header("location: index.php");
+                    header("location: larInstrutor.php");
                 } else {
                     $dialogIcon = "&#x26A0;&#xFE0F;";
                     $dialogTitle = "Erro";

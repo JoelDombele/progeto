@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ];
                    // $_SESSION['usuario_nome'] = $usuario['nome'];
 
-                    header("location: lar.php");
+                    header("location: index.php");
                 } else {
                     $dialogIcon = "&#x26A0;&#xFE0F;";
                     $dialogTitle = "Erro";
