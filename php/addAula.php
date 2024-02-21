@@ -106,30 +106,43 @@ if (isset($_GET['id_curso'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/suzana.css">
+    <title>Adicionar Aulas</title>
+    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 
+<?php include 'header.php'; ?>
+
 <body class="view">
-    <div class="form">
-        <h1>Adicionar Aulas</h1>
-        <form action="" method="post" enctype="multipart/form-data">
-            <label for="nome_aula">Título da Aula:</label>
-            <input type="text" id="nome_aula" name="nome_aula" required><br><br>
+    <div class="flex items-center justify-center mt-12 mb-12">
+        <form action="" method="post" enctype="multipart/form-data" class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/3 xl:w-1/4">
+            <div class="mb-4">
+                <h1 class="text-3xl font-bold mb-4">Adicionar Aulas</h1>
+                <label for="nome_aula" class="block text-sm font-semibold mb-2">Título da Aula:</label>
+                <input type="text" id="nome_aula" name="nome_aula" class="w-full p-2 border border-gray-300 rounded" required>
+            </div>
 
-            <label for="descricao_aula">Descrição da Aula:</label><br>
-            <textarea id="descricao_aula" name="descricao_aula" rows="4" cols="50"></textarea><br><br>
+            <div class="mb-4">
+                <label for="descricao_aula" class="block text-sm font-semibold mb-2">Descrição da Aula:</label>
+                <textarea id="descricao_aula" name="descricao_aula" rows="4" cols="50" class="w-full p-2 border border-gray-300 rounded"></textarea>
+            </div>
 
-            <label for="link_aula">Link da Aula:</label>
-            <input type="text" id="link_aula" name="link_aula" required><br><br>
+            <div class="mb-4">
+                <label for="link_aula" class="block text-sm font-semibold mb-2">Link da Aula:</label>
+                <input type="text" id="link_aula" name="link_aula" class="w-full p-2 border border-gray-300 rounded" required>
+            </div>
 
-            <label for="video">Vídeo da Aula:</label>
-            <input type="file" name="video" accept="video/*" required><br><br>
+            <div class="mb-4">
+                <label for="video" class="block text-sm font-semibold mb-2">Vídeo da Aula:</label>
+                <input type="file" name="video" accept="video/*" class="w-full p-2 border border-gray-300 rounded" required>
+            </div>
 
-            <input type="hidden" name="curso_id" value="<?php echo $_GET['id_curso']; ?>">
-            <input type="submit" value="Adicionar Aula">
+            <input type="hidden" name="curso_id" value="<?php echo isset($_GET['id_curso']) ? $_GET['id_curso'] : ''; ?>">
+
+            <div class="mb-4">
+                <input type="submit" value="Adicionar Aula" class="w-full bg-blue-500 text-white p-2 rounded cursor-pointer">
+            </div>
         </form>
     </div>
-</body>
 
-</html>
+<?php include 'footer.php'; ?>
