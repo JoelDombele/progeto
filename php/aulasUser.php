@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <title>Aulas do Curso</title>
     <style>
         body {
@@ -55,12 +56,12 @@
         }
     </style>
 </head>
+<body class="bg-gray-100 p-8">
 
-<body>
-    <h1>Aulas do Curso</h1>
+    <h1 class="text-3xl font-bold mb-6">Aulas do Curso</h1>
 
-    <main>       
-        <ul>
+    <main>
+        <ul class="space-y-4">
             <?php
             require_once 'connection.php';
 
@@ -73,24 +74,32 @@
                 $conn = $database->connect();
 
                 // Consulta ao banco de dados para obter as aulas do curso específico
-                $stmt = $conn->prepare("SELECT id, nome, link_aula FROM aulas WHERE curso_id = :id_curso");
+                $stmt = $conn->prepare("SELECT id, nome, link_aula, video FROM aulas WHERE curso_id = :id_curso");
                 $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
                 $stmt->execute();
                 $aulas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 // Exibir a lista de aulas do curso específico
                 foreach ($aulas as $aula) {
-                    $nome_aula = htmlspecialchars($aula['nome']); // Sanitização para evitar problemas de segurança
+                    $nome_aula = htmlspecialchars($aula['nome']);
                     $link_aula = htmlspecialchars($aula['link_aula']);
+                    $video = $aula['video']; // Não precisa de htmlspecialchars para HTML
 
-                    echo "<li><a href='$link_aula'>$nome_aula</a></li>";
+                    echo "<li class='hover:bg-gray-200 p-2 rounded transition duration-300'>
+                            <a href='$link_aula' class='block'>$nome_aula</a>";
+
+                    // Adicionar a condição para verificar se há um vídeo disponível
+                    if (!empty($video)) {
+                        echo "<div class='mt-2'>$video</div>";
+                    }
+
+                    echo "</li>";
                 }
             } else {
-                echo "<p>ID do curso não fornecido.</p>";
+                echo "<p class='text-red-500'>ID do curso não fornecido.</p>";
             }
             ?>
         </ul>
-    </main>
-</body>
+    </main></body>
 
 </html>

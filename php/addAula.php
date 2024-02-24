@@ -5,30 +5,6 @@ require_once 'connection.php';
 if (isset($_GET['id_curso'])) {
     $id_curso = $_GET['id_curso'];
 
-    function uploadVideo($arquivo, $diretorioDestino) {
-        if (isset($arquivo['name']) && isset($arquivo['tmp_name'])) {
-            $nomeArquivo = $arquivo['name'];
-            $caminhoTemporario = $arquivo['tmp_name'];
-            $caminhoDestino = $diretorioDestino . '/' . $nomeArquivo;
-    
-            // Verifica se o arquivo é um vídeo válido
-            $extensoesPermitidas = array('mp4', 'avi', 'mov', 'webm');
-            $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-            if (!in_array($extensao, $extensoesPermitidas)) {
-                return "Erro: O arquivo enviado não é um vídeo válido.";
-            }
-    
-            // Move o arquivo para o diretório de destino
-            if (move_uploaded_file($caminhoTemporario, $caminhoDestino)) {
-                return $nomeArquivo;
-            } else {
-                return "Erro ao fazer upload de vídeo.";
-            }
-        } else {
-            return "Erro: Dados do arquivo não estão presentes.";
-        }
-    }
-    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $database = new DB();
         $conn = $database->connect();
@@ -38,12 +14,11 @@ if (isset($_GET['id_curso'])) {
         $descricao_aula = trim($_POST["descricao_aula"]);
         $link_aula = trim($_POST["link_aula"]);
         $curso_id = $_POST["curso_id"];
-    
-        $video = $_FILES["video"];
+        $video = trim($_POST["video"]); // Novo campo para o código de incorporação
     
         // ... (código de validação dos campos do formulário) ...
     
-        if (empty($nome_aula) || empty($link_aula) || $video["error"] !== UPLOAD_ERR_OK || $video["size"] > 100000000) {
+        if (empty($nome_aula) || empty($link_aula) || empty($video)) {
             echo "Erro nos dados do formulário:<br>";
         
             if (empty($nome_aula)) {
@@ -53,51 +28,35 @@ if (isset($_GET['id_curso'])) {
             if (empty($link_aula)) {
                 echo "Link da aula não preenchido.<br>";
             }
-        
-            if ($video["error"] !== UPLOAD_ERR_OK) {
-                echo "Erro no upload do vídeo. Código de erro: " . $video["error"] . "<br>";
+
+            if (empty($video)) {
+                echo "Código de Incorporação do Vídeo não preenchido.<br>";
             }
         
-            if ($video["size"] > 100000000) {
-                echo "Tamanho do vídeo excede o limite permitido (100 MB). Tamanho atual: " . $video["size"] . " bytes<br>";
+            // ... (adicionar outras validações conforme necessário) ...
+        } else {
+            // Inserir os dados na tabela 'aulas' no banco de dados usando uma consulta SQL INSERT
+            $query = "INSERT INTO aulas (nome, descricao, link_aula, curso_id, video) VALUES (:nome, :descricao, :link_aula, :curso_id, :video)";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':nome', $nome_aula);
+            $stmt->bindParam(':descricao', $descricao_aula);
+            $stmt->bindParam(':link_aula', $link_aula);
+            $stmt->bindParam(':curso_id', $curso_id);
+            $stmt->bindParam(':video', $video);
+            
+            // Execute a query
+            if ($stmt->execute()) {
+                $dialogIcon = "&#x2705;";
+                $dialogTitle = "Cadastro Realizado";
+                $dialogMessage = "Cadastro feito com sucesso.";
+    
+                include 'dialog.php';
+            } else {
+                echo "Erro ao adicionar aula.";
             }
-        
-            echo "Informações de Depuração:<br>";
-            echo "Nome da Aula: " . $nome_aula . "<br>";
-            echo "Link da Aula: " . $link_aula . "<br>";
-            echo "Erro no upload do vídeo: " . $video["error"] . "<br>";
-            echo "Tamanho do vídeo: " . $video["size"] . " bytes<br>";
-            exit;
         }
-        
-        // Executa a função de upload do vídeo
-        $arquivoVideo = $_FILES['video'];
-        $diretorioDestinoVideo = '/var/www/html/progeto/videos'; // Substitua pelo seu diretório real
-        $resultadoUploadVideo = uploadVideo($arquivoVideo, $diretorioDestinoVideo);
-    
-        // Verifica o resultado do upload do vídeo
-        if (strpos($resultadoUploadVideo, 'Erro') !== false) {
-            echo $resultadoUploadVideo;
-            exit;
-        }
-    
-        // Restante do código para inserir os dados na tabela 'aulas' no banco de dados
-        // ...
-    
-        // Inserir os dados na tabela 'aulas' no banco de dados usando uma consulta SQL INSERT
-        $query = "INSERT INTO aulas (nome, descricao, link_aula, video, curso_id) VALUES (:nome, :descricao, :link_aula, :video, :curso_id)";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':nome', $nome_aula);
-        $stmt->bindParam(':descricao', $descricao_aula);
-        $stmt->bindParam(':link_aula', $link_aula);
-        $stmt->bindParam(':video', $resultadoUploadVideo); // Use o resultado do upload
-        $stmt->bindParam(':curso_id', $curso_id);
-    
-        // Execute a query
-        $stmt->execute();
     }
 }
-    
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +93,12 @@ if (isset($_GET['id_curso'])) {
 
             <div class="mb-4">
                 <label for="video" class="block text-sm font-semibold mb-2">Vídeo da Aula:</label>
-                <input type="file" name="video" accept="video/*" class="w-full p-2 border border-gray-300 rounded" required>
+                <input type="text" id="video" name="video" class="w-full p-2 border border-gray-300 rounded" placeholder="Insira o código de incorporação do vídeo">
+            </div>
+
+            <div class="mb-4">
+                <label for="video_file" class="block text-sm font-semibold mb-2">ou Envie um Vídeo:</label>
+                <input type="file" name="video_file" accept="video/*" class="w-full p-2 border border-gray-300 rounded">
             </div>
 
             <input type="hidden" name="curso_id" value="<?php echo isset($_GET['id_curso']) ? $_GET['id_curso'] : ''; ?>">
@@ -144,5 +108,6 @@ if (isset($_GET['id_curso'])) {
             </div>
         </form>
     </div>
+</body>
 
 <?php include 'footer.php'; ?>
