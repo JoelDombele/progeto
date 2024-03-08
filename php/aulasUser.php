@@ -65,7 +65,7 @@
             echo "<p class='text-red-500'>ID da aula não fornecido.</p>";
         }
         ?>
-        <a href="<?php echo $link_aula; ?>" target="_blank" class="block mt-4 bg-blue-500 text-white p-2 rounded cursor-pointer text-center">Assistir Aula</a>
+        <a href="<?php echo $link_aula; ?>" target="_blank" class="block mt-4 bg-blue-500 text-white p-2 rounded cursor-pointer text-center">Ver Aula em Texto</a>
     </main>
 
 </body>

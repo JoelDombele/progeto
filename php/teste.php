@@ -99,15 +99,21 @@ if (!$instrutor_categoria) {
     include 'dialog.php';
     exit;
 }
+// Obtém a categoria do usuário da sessão
+$categoria_instrutor = isset($_SESSION['instrutor']) ? $_SESSION['instrutor']['categoria_id'] : null;
 
-if ($instrutor_categoria['categoria_id'] !== $categoria_id) {
-    // A categoria do instrutor não é compatível com a categoria do curso
-    $dialogIcon = "&#x26A0;&#xFE0F;";
+// Verifica se a categoria do usuário é a mesma que a categoria do curso
+if ($categoria_instrutor != $categoria_id) {
+    // A categoria do usuário não é a mesma que a categoria do curso
+    $dialogIcon = "⚠️";
     $dialogTitle = "ERRO";
-    $dialogMessage = "A categoria do instrutor não é compatível com a categoria do curso.";
+    $dialogMessage = "Você não pode adicionar um curso que não esteja relacionado à sua categoria.";
     include 'dialog.php';
     exit;
 }
+
+
+
 
     // Continua com o restante do seu código...
 

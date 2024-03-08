@@ -1,5 +1,3 @@
-
-<link rel="stylesheet" href="../css/suzana.css">
 <?php
 require_once 'connection.php';
 
@@ -43,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             if (isset($_POST['submit'])) {
                 $dialogIcon = "&#x2705;";
-                $dialogTitle = "cadastro Realizado Realizada";
+                $dialogTitle = "cadastro Realizado ";
                 $dialogMessage = "Cadastro feito com sucesso.";
 
     include 'dialog.php';
