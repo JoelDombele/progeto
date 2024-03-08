@@ -60,7 +60,7 @@
 $database = new DB();
 $conn = $database->connect();
 
-  $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, preco_curso FROM cursos WHERE visualizacoes > 1");
+  $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, preco_curso FROM cursos WHERE visualizacoes > 10");
   $stmt->execute();
 
   
@@ -77,7 +77,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
   echo '<div class="course max-w-md w-full bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">';
   
   // Ajuste do caminho para a imagem usando um caminho relativo à raiz do servidor
-  echo '<img class="w-full h-48 object-cover mb-4" src="/imagens/' . $foto . '" alt="Imagem do Curso">';
+  echo '<img class="w-full h-48 object-cover mb-4" src="../imagens/' . $foto . '" alt="Imagem do Curso">';
 
   echo '<h2 class="text-xl font-semibold mb-2">' . $nome . '</h2>';
   echo '<b class="text-blue-600">$' . $preco . '</b>';

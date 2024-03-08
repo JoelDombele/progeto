@@ -9,52 +9,79 @@
 </head>
 
 <body>
-    <?php
-    session_start();
-    require_once 'connection.php';
+<?php
+session_start();
+require_once 'connection.php';
 
-    if (isset($_GET['id_curso'])) {
-        $id_curso = $_GET['id_curso'];
+if (isset($_GET['id_curso'])) {
+    $id_curso = $_GET['id_curso'];
 
-        $database = new DB();
-        $conn = $database->connect();
+    $database = new DB();
+    $conn = $database->connect();
 
-        $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, instrutor_id, visualizacoes, preco_curso FROM cursos WHERE id = :id_curso");
-        $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
-        $stmt->execute();
-        $curso = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, instrutor_id, visualizacoes, preco_curso FROM cursos WHERE id = :id_curso");
+    $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
+    $stmt->execute();
+    $curso = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($curso) {
-    ?>
-            <div class="container mx-auto bg-white p-8 shadow-md my-8">
-                <div class="flex justify-between">
-                    <div class="w-1/2">
-                        <img class="w-full h-auto" src="../imagens/<?php echo $curso['imagem']; ?>" alt="Imagem do Curso">
-                        <div class="mt-4">
-                            <h1 class="text-2xl font-bold"><?php echo $curso['nome']; ?></h1>
-                            <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['instrutor_id']; ?></h2>
-                            <p class="text-sm text-gray-600">Acessos: <?php echo $curso['visualizacoes']; ?></p>
-                            <p class="text-sm text-gray-600">Preço: $<?php echo $curso['preco_curso']; ?></p>
-                        </div>
-                    </div>
-                    <div class="w-1/2 ml-8">
-                        <h2 class="text-2xl font-bold mb-4">Descrição do Curso</h2>
-                        <p class="text-sm text-gray-600"><?php echo $curso['descricao']; ?></p>
+    if ($curso) {
+        // Função para verificar se o usuário está inscrito
+        function verificarSeUsuarioEstaInscrito($curso_id, $usuario_id) {
+            $database = new DB();
+            $conn = $database->connect();
 
-                        <!-- Adicionando formulário para comprar o curso -->
-                        <form method="post" action="processar_compra.php" class="mt-4">
-                            <input type="hidden" name="id_curso" value="<?php echo $curso['id']; ?>">
-                            <input type="hidden" name="preco_curso" value="<?php echo $curso['preco_curso']; ?>">
-                            <div class="mt-4">
-                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300" id="inscreverButton">Inscrever</button>
-                            </div>
-                        </form>
+            $stmt = $conn->prepare("SELECT COUNT(*) FROM inscricoes WHERE curso_id = :curso_id AND usuario_id = :usuario_id");
+            $stmt->bindParam(':curso_id', $curso_id, PDO::PARAM_INT);
+            $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $inscrito = $stmt->fetchColumn();
+
+            return $inscrito > 0;
+        }
+
+        // Obtenha o ID do usuário se estiver autenticado
+        $usuario_id = isset($_SESSION['usuario']['id']) ? $_SESSION['usuario']['id'] : null;
+
+        // Verifique se o usuário está inscrito
+        $usuarioInscrito = verificarSeUsuarioEstaInscrito($curso['id'], $usuario_id);
+
+        // Determine a classe CSS e o texto do botão com base na condição
+        $classeBotao = $usuarioInscrito ? 'bg-green-500 text-white' : 'bg-blue-500 text-white';
+        $textoBotao = $usuarioInscrito ? 'Inscrito' : 'Inscrever';
+?>
+        <div class="container mx-auto bg-white p-8 shadow-md my-8">
+            <div class="flex justify-between">
+                <div class="w-1/2">
+                    <img class="w-full h-auto" src="../imagens/<?php echo $curso['imagem']; ?>" alt="Imagem do Curso">
+                    <div class="mt-4">
+                        <h1 class="text-2xl font-bold"><?php echo $curso['nome']; ?></h1>
+                        <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['instrutor_id']; ?></h2>
+                        <p class="text-sm text-gray-600">Acessos: <?php echo $curso['visualizacoes']; ?></p>
+                        <p class="text-sm text-gray-600">Preço: $<?php echo $curso['preco_curso']; ?></p>
                     </div>
                 </div>
-            </div>
+                <div class="w-1/2 ml-8">
+                    <h2 class="text-2xl font-bold mb-4">Descrição do Curso</h2>
+                    <p class="text-sm text-gray-600"><?php echo $curso['descricao']; ?></p>
 
-            <!-- Caixa de diálogo -->
-            <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
+                    <!-- Adicionando formulário para comprar o curso -->
+                    <form method="post" action="processar_compra.php" class="mt-4">
+                        <input type="hidden" name="id_curso" value="<?php echo $curso['id']; ?>">
+                        <input type="hidden" name="preco_curso" value="<?php echo $curso['preco_curso']; ?>">
+                        <div class="mt-4">
+    <button type="submit" <?php echo $usuarioInscrito ? 'disabled' : ''; ?> class="<?php echo $classeBotao; ?> px-4 py-2 rounded-md  transition duration-300" id="inscreverButton">
+        <?php echo $textoBotao; ?>
+    </button>
+</div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+       <!-- Caixa de diálogo -->
+       <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded text-center">
                     <span id="closeDialogBtn" class="absolute top-2 right-2 text-xl cursor-pointer">&times;</span>
                     
@@ -86,14 +113,16 @@
                     });
                 });
             </script>
-    <?php
-        } else {
-            echo "<p class='text-center text-red-500'>Curso não encontrado.</p>";
-        }
+
+<?php
     } else {
-        echo "<p class='text-center text-red-500'>ID do curso não fornecido.</p>";
+        echo "<p class='text-center text-red-500'>Curso não encontrado.</p>";
     }
-    ?>
+} else {
+    echo "<p class='text-center text-red-500'>ID do curso não fornecido.</p>";
+}
+?>
+
     <?php
 session_start();
 

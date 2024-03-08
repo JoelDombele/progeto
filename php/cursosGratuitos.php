@@ -1,190 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../css/homepage.css">
-  <style>
-/* Estilos básicos para a lista de cursos */
-.courses-list {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-
-        .course {
-            background-color: #fff;
-            border-radius: 8px;
-            margin:12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease-in-out;
-            width: 300px;
-            border: 1px solid #ccc;
-        }
-
-        .course img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .course h2 {
-            padding: 15px;
-            margin: 0;
-            font-size: 1.2em;
-            color: #333;
-        }
-
-        .course p {
-            padding: 0 15px 15px;
-            margin: 0;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .course p.price {
-            font-weight: bold;
-            color: #e44d26; /* Cor laranja do Udemy */
-        }
-
-        .course a {
-            display: block;
-            padding: 10px 15px;
-            text-align: center;
-            text-decoration: none;
-            background-color:  rgba(255, 0, 0, 0.712) ;;
-            color: #fff;
-            font-weight: bold;
-            border-top: 1px solid #ddd;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .course a:hover {
-            background-color: #333;
-        }
-
-.footer{
-    width: 100%;
-    min-height: 100px;
-    padding: 20px 80px;
-    margin: 0;
-    background-color: #484872;
-    text-align: center;
-
-}
-.footer p{
-    color: whitesmoke;
-    margin: 20px auto;
-    padding: 20px auto ;
-}
-
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Meus Cursos</title>
 </head>
 <body>
-<nav class="navBar">
-            <h1 class="logo">EAD</h1>
-            <ul class="nav-links">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Cursos</a></li>
-                <li><a href="#">Categorias</a></li>
-                <li><a href="login.php" class="ctn">Login</a></li>
-                <li><a href="cadastrar.php" class="ctn">sign in</a></li>
-            </ul>
-            <img src="../imagens/menu-aberto.png" alt="" class="menu-bnt">
-
-    </nav>
-<header class="instrutor">
-        <div class="overlay">
-            <div class="header-content">
-                <h2>Crie Conteudos e Ajude muitas mentes Evoluirem</h2>
-                <div class="line"></div>
-                <h1>Encontre a tua inspiração</h1>
-                <a href="#" class="ctn">Aprenda mais</a>
-            </div>
-        </div>
-</header>
-<div class="title">
-            <h1>Cursos Gratuitos</h1>
-            <div class="line"></div>
-        </div>
-
 <?php
-require_once 'connection.php';
+   // Verifique se o usuário está autenticado
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    // Redirecione para a página de login ou exiba uma mensagem de erro
+    header("Location:login.php");
+    exit();
+}
+include 'header.php';
 
+require_once "connection.php";
 $database = new DB();
 $conn = $database->connect();
 
-try {
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['tipo_curso'])) {
-        $tipos = $_GET['tipo_curso'];
+// Obtém o ID do usuário da sessão
 
-        // Prepara uma string com placeholders para os valores
-        $placeholders = implode(',', array_fill(0, count($tipos), '?'));
+$usuario_id = $_SESSION['usuario']['id'];
 
-        // Cria a consulta SQL usando IN com os placeholders
-        $sql = "SELECT id, nome, descricao, imagem FROM cursos WHERE tipo_curso IN ($placeholders)";
-        $stmt = $conn->prepare($sql);
+// Consulta SQL modificada para selecionar cursos em que o usuário está inscrito
+$stmt = $conn->prepare("SELECT * FROM cursos");
+$stmt->execute();
 
-        // Executa a consulta usando os valores selecionados
-        $stmt->execute($tipos);
+echo '<div class="flex flex-wrap justify-center gap-8 mt-8">';
+echo '<p class="text-black text-4xl font-bold mb-8 mt-30 text-center w-full">Cursos Disponiveis</p>';
 
-        echo '<!DOCTYPE html>';
-        echo '<html lang="en">';
-        echo '<head>';
-        echo '<meta charset="UTF-8">';
-        echo '<title>Lista de Cursos</title>';
-        echo '<link rel="stylesheet" href="styles.css">';
-        echo '</head>';
-        echo '<body>';
-        echo '<div class="courses-list">';
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $foto = $row['imagem'];
+    $nome = $row['nome'];
+    $id_curso = $row['id'];
+    $preco = $row['preco_curso'];
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $foto = $row['imagem'];
-            $nome = $row['nome'];
-            $id_curso = $row['id'];
+    echo '<div class="course max-w-md w-full bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">';
+    echo '<img class="w-full h-48 object-cover mb-4" src="../imagens/' . $foto . '" alt="Imagem do Curso">';
+    echo '<h2 class="text-xl font-semibold mb-2">' . $nome . '</h2>';
+    
+    echo '<b class="text-blue-600">$' . $preco . '</b>';
+    echo '<a href="visualizacao.php?id_curso=' . $id_curso . '" class="block mt-4 bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300">Saiba Mais</a>';
 
-            echo '<div class="course">';
-            echo '<img src="../imagens/' . $foto . '" alt="Imagem do Curso">';
-            echo '<h2>' . $nome . '</h2>';
-            echo '<p>' . $row['descricao'] . '</p>';
-            echo '<b><p>Preço: $ Gratuito</p></b>';
-            echo '<a href="visualizacao.php?id_curso=' . $id_curso . '"> Saiba Mais </a>';
 
-            echo '</div>';
-        }
-
-        echo '</div>';
-        echo '</body>';
-        echo '</html>';
-    } else {
-        echo "Nenhum dado recebido do formulário.";
-    }
-} catch (PDOException $e) {
-    echo "Erro: " . $e->getMessage();
+    echo '</div>';
 }
+
 ?>
-<section class="footer">
-        <p>Explore as capacidades do seu cerebro. Projeto desenvolvido pelo grupo nº 2</p>
-        <p>Copyright @ 2023 EAD</p>
-    </section>
+  
 
-    <script>
-        const menuBnt = document.querySelector('.menu-bnt')
-        const navlinks = document.querySelector('.nav-links')
 
-        menuBnt.addEventListener('click',()=>{
-            navlinks.classList.toggle('mobile-menu')
-        })
-    </script>
-
-</body>
-</html>
