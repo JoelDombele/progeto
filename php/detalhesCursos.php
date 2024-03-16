@@ -19,7 +19,7 @@ if (isset($_GET['id_curso'])) {
     $database = new DB();
     $conn = $database->connect();
 
-    $stmt = $conn->prepare("SELECT id, nome, descricao, imagem, instrutor_id, visualizacoes, preco_curso FROM cursos WHERE id = :id_curso");
+    $stmt = $conn->prepare("SELECT c.id, c.nome, c.descricao, c.imagem, c.instrutor_id, c.visualizacoes, c.preco_curso, i.nome as nome_instrutor, i.email as email FROM cursos c INNER JOIN instrutores i ON c.instrutor_id = i.instrutor_id WHERE c.id = :id_curso");
     $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
     $stmt->execute();
     $curso = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,7 +56,8 @@ if (isset($_GET['id_curso'])) {
                     <img class="w-full h-auto" src="../imagens/<?php echo $curso['imagem']; ?>" alt="Imagem do Curso">
                     <div class="mt-4">
                         <h1 class="text-2xl font-bold"><?php echo $curso['nome']; ?></h1>
-                        <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['instrutor_id']; ?></h2>
+                        <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['nome_instrutor']; ?></h2>
+                        <p class="text-sm text-gray-600">Email do Instrutor: <?php echo $curso['email']; ?></p>
                         <p class="text-sm text-gray-600">Acessos: <?php echo $curso['visualizacoes']; ?></p>
                         <p class="text-sm text-gray-600">Preço: $<?php echo $curso['preco_curso']; ?></p>
                     </div>
@@ -70,15 +71,18 @@ if (isset($_GET['id_curso'])) {
                         <input type="hidden" name="id_curso" value="<?php echo $curso['id']; ?>">
                         <input type="hidden" name="preco_curso" value="<?php echo $curso['preco_curso']; ?>">
                         <div class="mt-4">
-    <button type="submit" <?php echo $usuarioInscrito ? 'disabled' : ''; ?> class="<?php echo $classeBotao; ?> px-4 py-2 rounded-md  transition duration-300" id="inscreverButton">
-        <?php echo $textoBotao; ?>
-    </button>
-</div>
-
+                            <button type="submit" <?php echo $usuarioInscrito ? 'disabled' : ''; ?> class="<?php echo $classeBotao; ?> px-4 py-2 rounded-md  transition duration-300" id="inscreverButton">
+                                <?php echo $textoBotao; ?>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
+<?php
+    
+
+?>
 
        <!-- Caixa de diálogo -->
        <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
