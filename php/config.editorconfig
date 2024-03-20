@@ -1,0 +1,15 @@
+
+# Define o estilo de indentação como espaços
+indent_style = space
+
+# Define a largura da indentação em 4 espaços
+indent_size = 4
+
+# Define quebras de linha como LF (Unix-style)
+end_of_line = lf
+
+# Remove espaços em branco no final das linhas
+trim_trailing_whitespace = true
+
+# Adiciona uma linha vazia no final do arquivo
+insert_final_newline = true

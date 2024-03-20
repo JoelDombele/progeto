@@ -79,10 +79,7 @@ if (isset($_GET['id_curso'])) {
                 </div>
             </div>
         </div>
-<?php
-    
 
-?>
 
        <!-- Caixa de diálogo -->
        <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
