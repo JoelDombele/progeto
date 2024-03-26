@@ -1,7 +1,7 @@
 <?php
             // Abre uma conexão com o banco de dados
             session_start();
-            require_once "connection.php";
+            require_once "controller/connection.php";
 
             $database = new DB();
             $conn = $database->connect();
