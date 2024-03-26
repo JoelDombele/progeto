@@ -50,35 +50,46 @@ if (isset($_GET['id_curso'])) {
         $classeBotao = $usuarioInscrito ? 'bg-green-500 text-white' : 'bg-blue-500 text-white';
         $textoBotao = $usuarioInscrito ? 'Inscrito' : 'Inscrever';
 ?>
-        <div class="container mx-auto bg-white p-8 shadow-md my-8">
-            <div class="flex justify-between">
-                <div class="w-1/2">
-                    <img class="w-full h-auto" src="../imagens/<?php echo $curso['imagem']; ?>" alt="Imagem do Curso">
-                    <div class="mt-4">
-                        <h1 class="text-2xl font-bold"><?php echo $curso['nome']; ?></h1>
-                        <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['nome_instrutor']; ?></h2>
-                        <p class="text-sm text-gray-600">Email do Instrutor: <?php echo $curso['email']; ?></p>
-                        <p class="text-sm text-gray-600">Acessos: <?php echo $curso['visualizacoes']; ?></p>
-                        <p class="text-sm text-gray-600">Preço: $<?php echo $curso['preco_curso']; ?></p>
+         <!-- Tela de Diálogo -->
+    <div id="dialog" class="dialog-container">
+        <div class="dialog-content">
+            <!-- Conteúdo do Curso -->
+            <div class="container mx-auto bg-white p-8 shadow-md">
+                <div class="flex justify-between">
+                    <div class="w-1/2">
+                        <img class="w-full h-auto" src="../imagens/<?php echo $curso['imagem']; ?>" alt="Imagem do Curso">
+                        <div class="mt-4">
+                            <h1 class="text-2xl font-bold"><?php echo $curso['nome']; ?></h1>
+                            <h2 class="text-sm text-gray-600">Instrutor: <?php echo $curso['nome_instrutor']; ?></h2>
+                            <p class="text-sm text-gray-600">Email do Instrutor: <?php echo $curso['email']; ?></p>
+                            <p class="text-sm text-gray-600">Acessos: <?php echo $curso['visualizacoes']; ?></p>
+                            <p class="text-sm text-gray-600">Preço: $<?php echo $curso['preco_curso']; ?></p>
+                        </div>
+                    </div>
+                    <div class="w-1/2 ml-8">
+                        <h2 class="text-2xl font-bold mb-4">Descrição do Curso</h2>
+                        <p class="text-sm text-gray-600"><?php echo $curso['descricao']; ?></p>
                     </div>
                 </div>
-                <div class="w-1/2 ml-8">
-                    <h2 class="text-2xl font-bold mb-4">Descrição do Curso</h2>
-                    <p class="text-sm text-gray-600"><?php echo $curso['descricao']; ?></p>
-
-                    <!-- Adicionando formulário para comprar o curso -->
-                    <form method="post" action="processar_compra.php" class="mt-4">
-                        <input type="hidden" name="id_curso" value="<?php echo $curso['id']; ?>">
-                        <input type="hidden" name="preco_curso" value="<?php echo $curso['preco_curso']; ?>">
-                        <div class="mt-4">
-                            <button type="submit" <?php echo $usuarioInscrito ? 'disabled' : ''; ?> class="<?php echo $classeBotao; ?> px-4 py-2 rounded-md  transition duration-300" id="inscreverButton">
-                                <?php echo $textoBotao; ?>
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
+
+            <!-- Botão para fechar a tela de diálogo -->
+            <button id="closeDialogBtn" class="absolute top-4 right-4 text-xl cursor-pointer">&times;</button>
         </div>
+    </div>
+
+    <!-- Adicione o script para mostrar e ocultar a tela de diálogo -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const closeDialogBtn = document.getElementById("closeDialogBtn");
+            const dialog = document.getElementById("dialog");
+
+            closeDialogBtn.addEventListener("click", function () {
+                dialog.classList.add('hidden');
+            });
+        });
+    </script>
+
 
 
        <!-- Caixa de diálogo -->
@@ -139,3 +150,4 @@ if (isset($_SESSION['usuario'])) {
 </body>
 
 </html>
+

@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario'])) {
     header("Location:login.php");
     exit();
 }
-include 'header.php';
+include 'partials/nav.php';
 
 require_once "connection.php";
 $database = new DB();

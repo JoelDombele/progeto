@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php include 'header.php'; ?>
+<?php include 'partials/nav.php' ?>
 
 <div class="flex items-center justify-center mt-12 mb-12"> <!-- Adicionei as classes mt-12 e mb-12 para a margem superior e inferior -->
     <form method="post" class="bg-white p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3 xl:w-1/4">

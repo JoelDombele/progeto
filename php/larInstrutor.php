@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'header.php';
+include 'view/instrutor.view.php';
 ?>
 
 <header class="bg-white shadow">

@@ -1,6 +1,6 @@
 <?php
 require_once 'connection.php';
-include('header.php'); // Inclua o cabeçalho
+include 'partials/nav.php'; // Inclua o cabeçalho
 
 $database = new DB();
 $conn = $database->connect();
@@ -16,9 +16,14 @@ try {
         $stmt->execute();
     } else {
         // Redireciona de volta para a página inicial se não houver termo de pesquisa
-        header("Location: homePage.php");
-        exit();
-    }
+                 $dialogIcon = "&#x2705;";
+                $dialogTitle = "DESCULPE";
+                $dialogMessage = "Curso não encontrado";
+
+                 include 'dialog.php';
+                 header("Location: index.php");
+         exit();
+    }   
 
     echo '<div class="flex flex-wrap justify-center gap-8 mt-8">'; // Adiciona uma classe de flexbox com espaçamento entre os cards
 echo '<p class="text-black text-4xl font-bold mb-8 mt-30 text-center w-full"> Cursos Encontrados  </p>  ';
