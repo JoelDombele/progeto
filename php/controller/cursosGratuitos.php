@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Meus Cursos</title>
-</head>
-<body>
+<?php 
+        $title = "Meus Cursos";
+        include 'partials/header.php';
+     
+?>
 <?php
    // Verifique se o usuário está autenticado
 session_start();
 if (!isset($_SESSION['usuario'])) {
     // Redirecione para a página de login ou exiba uma mensagem de erro
-    header("Location:login.php");
+    header("Location: controller/login.php");
     exit();
 }
-include 'partials/nav.php';
+include '../partials/nav.php';
 
 require_once "connection.php";
 $database = new DB();

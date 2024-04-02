@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ];
                    // $_SESSION['usuario_nome'] = $usuario['nome'];
 
-                    header("location: index.php");
+                    header("location: /index");
                 } else {
                     $dialogIcon = "&#x26A0;&#xFE0F;";
                     $dialogTitle = "Erro";
@@ -70,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<?php include 'view/viewLogin.html'; ?>
+<?php include '../view/viewLogin.html'; ?>
+
+
 
 
 

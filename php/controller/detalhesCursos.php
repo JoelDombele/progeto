@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Curso</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+<?php $title = " Detalhes do curso"; include '../partials/header.php'; ?>
 
 <body>
 <?php
@@ -69,6 +61,13 @@ if (isset($_GET['id_curso'])) {
                     <div class="w-1/2 ml-8">
                         <h2 class="text-2xl font-bold mb-4">Descrição do Curso</h2>
                         <p class="text-sm text-gray-600"><?php echo $curso['descricao']; ?></p>
+                        <form method="post" action="processar_compra.php" class="mt-4">
+                        <input type="hidden" name="id_curso" value="<?php echo $curso['id']; ?>">
+                        <input type="hidden" name="preco_curso" value="<?php echo $curso['preco_curso']; ?>">
+                        <div class="mt-4">
+                         <button type="submit" <?php echo $usuarioInscrito ? 'disabled' :   ''; ?> class="<?php echo $classeBotao; ?> px-4 py-2 rounded-md      transition duration-300" id="inscreverButton">
+                            <?php echo $textoBotao; ?>
+                        </button>
                     </div>
                 </div>
             </div>

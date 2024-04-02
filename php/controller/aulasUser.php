@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+     <?php 
+        $title = "Minhas Aulas";
+        include 'partials/header.php';
+     
+     ?>
     <style>
         /* Adicionando um estilo personalizado para tornar o iframe responsivo */
         .embed-responsive {
@@ -21,9 +19,6 @@
             height: 100%;
         }
     </style>
-    <title>Aula do Curso</title>
-</head>
-
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
     <main class="bg-white p-8 rounded shadow-md w-full md:w-4/5 lg:w-3/4 xl:w-2/3">

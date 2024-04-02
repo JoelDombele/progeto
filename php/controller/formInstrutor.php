@@ -21,15 +21,11 @@
             
             ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Instrutor</title>
-    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-</head>
+<?php 
+    $title = "Cadastrar Intrutor";
+    include 'partials/header.php';
+     
+?>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
     <!-- form_cadastro_instrutor.html -->

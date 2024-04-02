@@ -12,13 +12,16 @@ class DB {
 
         try {
             // Removido a parte do socket do DSN
+            
             $this->conn = new PDO("mysql:host=$this->host;port=$this->port;dbname=$this->db_name;charset=utf8", $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             // Logar o erro em um arquivo de log ou sistema de monitoramento
+
             error_log('Erro de conexão: ' . $e->getMessage());
+
             // Forneça uma mensagem genérica ao usuário
-            // Você pode personalizar esta mensagem com base nas suas necessidades
+            
             die('Não foi possível conectar ao banco de dados.');
         }
 

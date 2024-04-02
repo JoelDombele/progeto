@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'partials/header.php' ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Aulas</title>
-    <!-- Adicione a referência ao arquivo CSS do Tailwind -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-</head>
 
-<?php include 'header.php'; ?>
-
-<body class="view">
+<body class="view">  <?php include 'partials/nav.php' ?>
     <div class="flex items-center justify-center mt-12 mb-12">
         <form action="" method="post" enctype="multipart/form-data" class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/3 xl:w-1/4">
             <div class="mb-4">
