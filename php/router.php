@@ -1,14 +1,7 @@
 <?php
           $url = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-          
-          $routes = [
-               '/index' => 'view/index.view.php',
-               '/cursos' => 'controller/cursosGratuitos.php',
-               '/instrutor' => 'controller/painel.php',
-               '/MeusCursos' => 'controller/userCursos.php',
-               '/logOut' => 'controller/logOut.php'
-          ];
+          require 'routes.php';
 
           if(array_key_exists($url,$routes)){
                require $routes[$url];

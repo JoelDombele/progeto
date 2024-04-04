@@ -44,10 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Adicione sua lógica de processamento de pagamento aqui (gateway de pagamento, etc.)
     
     // Exibir mensagem de sucesso na caixa de diálogo
+    header('Location: /MeusCursos');
     $dialogIcon = "&#x2705;";
     $dialogTitle = "Inscrição Realizada";
     $dialogMessage = "Inscrição feita com sucesso.";
 
     include 'dialog.php';
+   
 }
 ?>
+<script>
+    
+    setTimeout(function() {
+       
+        window.location.href = "/MeusCursos";
+    }, 3000); // 3000 milissegundos = 3 segundos
+</script>

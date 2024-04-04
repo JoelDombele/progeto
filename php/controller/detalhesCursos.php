@@ -72,27 +72,11 @@ if (isset($_GET['id_curso'])) {
                 </div>
             </div>
 
-            <!-- Botão para fechar a tela de diálogo -->
-            <button id="closeDialogBtn" class="absolute top-4 right-4 text-xl cursor-pointer">&times;</button>
-        </div>
+            
     </div>
-
-    <!-- Adicione o script para mostrar e ocultar a tela de diálogo -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const closeDialogBtn = document.getElementById("closeDialogBtn");
-            const dialog = document.getElementById("dialog");
-
-            closeDialogBtn.addEventListener("click", function () {
-                dialog.classList.add('hidden');
-            });
-        });
-    </script>
-
-
-
-       <!-- Caixa de diálogo -->
-       <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
+    
+<!-- Caixa de diálogo -->
+      <div id="dialog" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50">
                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded text-center">
                     <span id="closeDialogBtn" class="absolute top-2 right-2 text-xl cursor-pointer">&times;</span>
                     

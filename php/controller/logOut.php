@@ -22,7 +22,7 @@ if (ini_get("session.use_cookies")) {
 // Destrua a sessão
 session_destroy();
 
-// Redirecione para a página de login ou qualquer outra página após o logout
-header("Location: login.php");
+// Redirecione para a página de login 
+header("Location: controller/login.php");
 exit();
 ?>

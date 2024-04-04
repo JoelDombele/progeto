@@ -9,7 +9,7 @@
 session_start();
 if (!isset($_SESSION['usuario'])) {
     // Redirecione para a página de login ou exiba uma mensagem de erro
-    header("Location:login.php");
+    header("Location: controller/login.php");
     exit();
 }
 include 'partials/nav.php';
@@ -43,7 +43,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo '<h2 class="text-xl font-semibold mb-2">' . $nome . '</h2>';
     
     echo '<b class="text-blue-600">$' . $preco . '</b>';
-    echo '<a href="aulaTable.php?id_curso=' . $id_curso . '" class="block mt-4 bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300">Acessar</a>';
+    echo '<a href="controller/aulaTable.php?id_curso=' . $id_curso . '" class="block mt-4 bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-600 transition duration-300">Acessar</a>';
 
     echo '</div>';
 }
