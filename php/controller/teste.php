@@ -138,6 +138,8 @@ if ($categoria_instrutor != $categoria_id) {
     }
 }
 
+include '../view/formCurso.view.php';
+
 
 
 

@@ -10,18 +10,27 @@
             <div class="mb-6">
                 <h1 class="text-3xl font-bold mb-4">Registra-te</h1>
                 <input type="text" class="w-full p-2 border border-gray-300 rounded" name="nome" required placeholder="Nome">
-            </div>
-            <?php if(isset($errors['nome'])): ?>
+                <?php if(isset($errors['nome'])): ?>
 
-                <p class="text-red-500 text-xs mt-2"><?= $errors['nome'];?></p>
-            <?php endif; ?>    
+               <p class="text-red-500 text-xs mt-2"><?= $errors['nome'];?></p>
+                <?php endif; ?> 
+            </div>
+               
 
             <div class="mb-6">
                 <input type="email" class="w-full p-2 border border-gray-300 rounded" name="email" required placeholder="Email">
+                <?php if(isset($errors['nome'])): ?>
+
+                <p class="text-red-500 text-xs mt-2"><?= $errors['email'];?></p>
+                <?php endif; ?> 
             </div>
 
             <div class="mb-6">
                 <input type="password" class="w-full p-2 border border-gray-300 rounded" name="senha" required placeholder="Senha">
+                <?php if(isset($errors['nome'])): ?>
+
+                <p class="text-red-500 text-xs mt-2"><?= $errors['senha'];?></p>
+                <?php endif; ?> 
             </div>
 
             <div class="mb-6">

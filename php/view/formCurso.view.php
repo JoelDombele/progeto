@@ -36,7 +36,7 @@
   <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
     <div class="min-h-screen min-w-screen-md flex items-center justify-center">
-    <form action="teste.php" id="cursoForm" method="post" enctype="multipart/form-data"   class="w-full max-w-screen-md space-y-12 p-6 bg-white rounded-md shadow-md">
+    <form  id="cursoForm" method="post" enctype="multipart/form-data"   class="w-full max-w-screen-md space-y-12 p-6 bg-white rounded-md shadow-md">
     <div class="border-b border-gray-900/10 pb-12">
         <h1 class="text-2xl font-semibold leading-8 text-gray-900">Cadastrar Cursos</h1>
         <p class="mt-1 text-sm leading-6 text-gray-600">Preencha as informações do curso.</p>
@@ -109,7 +109,7 @@
     </div>
   </main>
 </div>
-<?php include'../partials/footer.php';?>
+<?php include '../partials/footer.php';?>
   
 </body>
 </html>

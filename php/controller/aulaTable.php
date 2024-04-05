@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <title>Aulas do Curso</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
+       
         h1 {
             text-align: center;
         }
@@ -56,7 +51,9 @@
         }
     </style>
 </head>
+<?php include '../partials/nav.php';?>
 <body class="bg-gray-100 p-8">
+
 
     <h1 class="text-3xl font-bold mb-6">Aulas do Curso</h1>
 
