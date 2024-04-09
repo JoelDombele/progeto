@@ -21,7 +21,7 @@ try {
                 $dialogMessage = "Curso não encontrado";
 
                  include 'dialog.php';
-                 header("Location: index.php");
+                 header("Location: /index");
          exit();
     }   
 
