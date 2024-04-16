@@ -3,22 +3,7 @@
         include 'partials/header.php';
      
      ?>
-    <style>
-        /* Adicionando um estilo personalizado para tornar o iframe responsivo */
-        .embed-responsive {
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
-        }
-
-        .embed-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
